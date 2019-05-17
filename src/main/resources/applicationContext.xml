@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop\spring-aop-4.0.xsd ">
+
+    <context:property-placeholder location="classpath:db.properties"/>
+    <!--<context:component-scan  base-package="com.hc.swagger"/>-->
+
+    <bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
+        <property name="driverClass" value="${jdbc.driverClass}" />
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+
+        <!--
+                <property name="maxActive" value="100"></property>
+                <property name="maxIdle" value="30"></property>
+                <property name="maxWait" value="30000"></property>
+                <property name="defaultAutoCommit" value="true"></property> -->
+    </bean>
+
+    <!-- 配置hibernate的sessionFactory -->
+    <bean name="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" >
+        <property name="dataSource" ref="dataSource" ></property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+
+                <!-- 配置使用 hibernate-c3p0 连接池的核心信息 -->
+                <!-- 让hibernate使用c3p0提供的连接池 -->
+                <!-- <prop key="hibernate.connection.provider_class" >org.hibernate.c3p0.internal.C3P0ConnectionProvider</prop> -->
+                <!-- 最大连接数 -->
+                <prop key="hibernate.c3p0.max_size" >20</prop>
+                <!-- 最小连接数 -->
+                <prop key="hibernate.c3p0.min_size" >5</prop>
+                <!-- 连接池里连接的超时时长，超过这个时间会抛出异常，单位ms -->
+                <prop key="hibernate.c3p0.timeout" >2000</prop>
+                <!-- 最大空闲时间，1800秒内未使用则丢弃该连接，默认值为0，指永不丢弃 -->
+                <!-- <prop key="hibernate.c3p0.maxIdleTime" >1800</prop> -->
+                <!--最大缓存多少个statement对象  -->
+                <prop key="hibernate.c3p0.max_statements" >10</prop>
+                <!-- 该线程会根据时间差值判断要不要把超时的连接移除 -->
+                <prop key="hibernate.c3p0.idle_test_period" >2000</prop>
+                <!-- 当连接池里面的连接耗尽时，Hibernate应该向数据库一次性申请的连接数 -->
+                <prop key="hibernate.c3p0.acquire_increment" >10</prop>
+                <!-- 一个statement结束后就立刻释放该连接 -->
+                <prop key="hibernate.connection.release_mode" >after_statement</prop>
+            </props>
+        </property>
+        <property name="mappingDirectoryLocations" value="classpath:hbm" ></property>
+    </bean>
+
+    <!-- 配置核心事务管理器 -->
+    <bean name="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager" >
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <!-- 开启注解配置通知 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <bean name="updateAction" class="com.hc.action.UpdateAction" scope="prototype" >
+        <property name="ms" ref="ms"></property>
+    </bean>
+
+    <bean name="ms" class="com.hc.service.impl.MangaerServiceImpl" >
+        <property name="md" ref="md"></property>
+    </bean>
+
+    <bean name="md" class="com.hc.dao.impl.ManagerDaoImpl" >
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <bean name="searchAction" class="com.hc.action.SearchAction" scope="prototype" >
+    	<property name="us" ref="us"></property>
+    </bean>
+    
+    <bean name="us" class="com.hc.service.impl.UserServiceImpl" >
+    	<property name="ud" ref="ud"></property>
+    </bean>
+    
+    <bean name="ud" class="com.hc.dao.impl.UserDaoImpl" >
+    	<property name="sessionFactory" ref="sessionFactory" ></property>
+    </bean>
+    
+</beans>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.hc.domain.Worker" table="t_worker" >
+        <id name="wkr_id" >
+            <generator class="native" />
+        </id>
+
+        <many-to-one name="place" column="place_id" class="com.hc.domain.Place" />
+
+        <set name="monitorDatas" table="t_mn_wk" inverse="true" >
+            <key column="mn_worker_id"/>
+            <many-to-many class="com.hc.domain.MonitorData" column="mn_data_id" />
+        </set>
+
+        <property name="wkr_name" length="32" />
+        <property name="wkr_contact" unique="true" />
+
+    </class>
+
+</hibernate-mapping>

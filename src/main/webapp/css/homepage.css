@@ -1,0 +1,67 @@
+.homepage-row{
+    margin: 0 15px ;
+}
+.homepage-row>div[class |=col ]{
+    padding: 0;
+}
+.top-line-green{
+    border-top: 4px solid rgba(16, 160, 88, 0.66);
+}
+.top-line-blue{
+    border-top: 4px solid #00aff0;
+}
+.top-line-red{
+    border-top: 4px solid #ffc314;
+}
+.parts-content{
+    margin: 10px;
+}
+.title-font{
+    font-size:16px ;
+}
+
+.right-margin{
+    padding: 0;
+    margin-right:25px ;
+}
+/*手机媒体查询*/
+@media (max-width: 992px) {
+    .left-margin{
+        margin-right:0;
+    }
+}
+.table-head{
+    font-weight: 600;
+    color: #000 ;
+}
+.name-color{
+    color: #26c6da;
+    cursor: pointer;
+}
+.name-color:hover{
+    text-decoration: underline;
+}
+.state-normal{
+    height: 27px;
+    margin: 2px 0;
+    padding: 3px;
+    background: #39c764;
+    color: white;
+    border-radius:3px ;
+    cursor: pointer;
+}
+.state-alarm{
+    height: 27px;
+    margin: 2px 0;
+    padding: 3px;
+    background: orangered;
+    color: white;
+    border-radius:3px ;
+    cursor: pointer;
+}
+/*11-----------------------*/
+.content-nav{
+    margin: 10px 0;
+    font-size: 24px;
+    color: #7a7a7a;
+}

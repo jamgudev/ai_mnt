@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.hc.domain.Place" table="t_place" >
+        <id name="p_id" >
+            <generator class="native" />
+        </id>
+        <set name="workers" cascade="save-update" inverse="true">
+            <key column="place_id" />
+            <one-to-many class="com.hc.domain.Worker" />
+        </set>
+
+        <set name="monitorDatas" cascade="save-update" inverse="true">
+            <key column="dt_place_id" />
+            <one-to-many class="com.hc.domain.MonitorData" />
+        </set>
+
+        <property name="p_name" length="32" unique="true" />
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!--suppress ALL -->
+<hibernate-mapping>
+    <class name="com.hc.domain.MonitorData" table="t_monitor_data">
+        <id name="dt_id">
+            <generator class="native"></generator>
+        </id>
+        <many-to-one name="place" column="dt_place_id" class="com.hc.domain.Place" />
+
+        <set name="workers" table="t_mn_wk">
+            <key column="mn_data_id" />
+            <many-to-many class="com.hc.domain.Worker" column="mn_worker_id" ></many-to-many>
+        </set>
+
+		<property name="dt_preset_pn"></property>
+        <property name="dt_ppnb"></property>
+        <property name="dt_alert_level" length="4"></property>
+        <property name="dt_changing_pn" length="16777216"></property>
+        <property name="dt_from_time" length="32" />
+        <property name="dt_to_time" length="32" />
+        <property name="dt_vd_url"></property>
+        <property name="dt_mnt_diary_url"></property>
+
+    </class>
+</hibernate-mapping>
