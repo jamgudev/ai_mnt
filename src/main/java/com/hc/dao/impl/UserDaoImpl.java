@@ -1,19 +1,20 @@
 package com.hc.dao.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.springframework.orm.hibernate5.HibernateCallback;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
-
 import com.hc.bean.UtilBean;
 import com.hc.dao.IUserDao;
 import com.hc.domain.MonitorData;
 import com.hc.domain.Place;
 import com.hc.domain.Worker;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@SuppressWarnings("ALL")
 public class UserDaoImpl extends HibernateDaoSupport implements IUserDao {
 
 	@Override
@@ -27,17 +28,19 @@ public class UserDaoImpl extends HibernateDaoSupport implements IUserDao {
 				String hql = "from MonitorData where ";
 				if (!"".equals(placeInfo)) {
 					if (placeInfo instanceof Integer)
-						hql += "place.p_id = " + placeInfo;
+						hql += "place.p_id = " + placeInfo + " and " ;
 					else if (placeInfo instanceof String)
-						hql += "place.p_name = '" + placeInfo + "'";
+						hql += "place.p_name = '" + placeInfo + "' and ";
 				}
 				if (level != null && !"".equals(level)) hql += "dt_alert_level = '" + level + "' and ";
-				if (tDuring != null && ! "".equals(tDuring)) 
-					hql += "dt_from_time <= '" + tDuring + "' and "
-						+ "dt_to_time >= '" + tDuring + "' and ";
-				else if (tFrom != null && tTo != null && !"".equals(tFrom) && !"".equals(tTo)) 
+				if (tFrom != null && tTo != null && !"".equals(tFrom) && !"".equals(tTo))
 					hql += "dt_from_time >= '" + tFrom + "' and "
-						+ "dt_to_time <= '" + tTo + "' and ";
+						+ "dt_from_time <= '" + tTo + "' and ";
+				else if (tFrom != null && !"".equals(tFrom) || tTo != null && !"".equals(tTo)) {
+					String time = tFrom != null && !"".equals(tFrom) ? tFrom : tTo;
+					hql += "dt_from_time <= '" + time + "' and "
+							+ "dt_to_time >= '" + time + "' and ";
+				}
 				if (hql.endsWith("where "))
 					hql = hql.substring(0, hql.lastIndexOf("where"));
 				if (hql.endsWith("and "))
