@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.hc.domain.Manager" table="t_manager" >
+        <id name="m_id" >
+            <generator class="native" />
+        </id>
+
+        <set name="diaries" inverse="true" cascade="delete"  >
+            <key column="d_m_id" />
+            <one-to-many class="com.hc.domain.Diary" />
+        </set>
+
+        <property name="m_name" length="32"/>
+        <property name="m_acct" length="32" />
+        <property name="m_psw" length="64" />
+    </class>
+
+</hibernate-mapping>

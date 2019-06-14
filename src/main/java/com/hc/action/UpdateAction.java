@@ -1,24 +1,26 @@
 package com.hc.action;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.hc.bean.DoMain;
 import com.hc.service.IManagerService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import net.sf.json.JSONObject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import net.sf.json.JSONObject;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 @Controller
 @RestController
 @RequestMapping("/update")
@@ -56,8 +58,30 @@ public class UpdateAction extends ActionSupport implements ModelDriven<DoMain> {
 			@ApiImplicitParam(name = "md.workers.makeNew[?].wkr_contact", value = "负责人员", dataType = "String"),
 	})
 	public void up_load() throws Exception {
-		JSONObject jso = new JSONObject();
-		jso = ms.uploadData(dm, request);
+		JSONObject jso = ms.uploadData(dm, request);
+		response.getWriter().print(jso);
+	}
+
+	// 上传图片
+	public void ud_pic() throws Exception {
+		JSONObject jso = ms.updatePicForSec(dm, request);
+		response.getWriter().print(jso);
+	}
+
+	// 更新阈值
+	public void ud_threh() throws Exception {
+		JSONObject jso = ms.updateThreh(dm);
+		response.getWriter().print(jso);
+	}
+
+	public void login() throws Exception {
+		JSONObject jso = ms.doLogin(dm);
+		response.getWriter().print(jso);
+	}
+
+	// 为告警地点设置工作人员(单个)
+	public void st_sglewk() throws Exception {
+		JSONObject jso = ms.setSingleWorker(dm);
 		response.getWriter().print(jso);
 	}
 

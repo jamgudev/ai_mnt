@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.hc.domain.ShellData" table="t_cmd">
+        <id name="sd_id">
+            <generator class="native" />
+        </id>
+        <property name="cmd_id" length="32" unique="true" />
+        <many-to-one cascade="save-update" name="md" class="com.hc.domain.MonitorData" column="s_dt_id" />
+
+        <property name="sd_cmd" length="128" />
+        <property name="sd_sts">
+            <column name="cd_sts" length="16" default="'正在运行'"/>
+        </property>
+
+    </class>
+
+</hibernate-mapping>

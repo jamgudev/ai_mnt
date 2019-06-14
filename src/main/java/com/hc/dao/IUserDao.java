@@ -16,5 +16,12 @@ public interface IUserDao {
 	List<UtilBean> searchCountByEquipment(String string);
 
 	List<Worker> searchWorkers(Object place);
-	
+
+    String getUrl(Integer id);
+
+    Integer getPlaceId(String placeName);
+
+	List<MonitorData> getMostNumberByPlaceId(Integer placeId);
+
+	List<MonitorData> searchForToday(String todayTime);
 }

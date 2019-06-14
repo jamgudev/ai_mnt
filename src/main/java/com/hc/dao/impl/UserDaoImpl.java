@@ -8,6 +8,7 @@ import com.hc.domain.Worker;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
@@ -107,6 +108,52 @@ public class UserDaoImpl extends HibernateDaoSupport implements IUserDao {
 					else if (place instanceof String) hql += " where place.p_name = '" + place + "'";
 				}
 				return session.createQuery(hql).list();
+			}
+		});
+	}
+
+	@Override
+	public String getUrl(final Integer id) {
+		return this.getHibernateTemplate().execute(new HibernateCallback<String>() {
+			@Override
+			public String doInHibernate(Session session) throws HibernateException {
+				MonitorData m = (MonitorData) session.createQuery("from MonitorData where dt_id = " + id).uniqueResult();
+				return m.getDt_mnt_pic_url();
+			}
+		});
+	}
+
+	@Override
+	public Integer getPlaceId(final String placeName) {
+		return this.getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+			@Override
+			public Integer doInHibernate(Session session) throws HibernateException {
+				Place place = (Place) session.createQuery("from Place where p_name = '" + placeName + "'").uniqueResult();
+				return place.getP_id();
+			}
+		});
+	}
+
+	@Override
+	public List<MonitorData> getMostNumberByPlaceId(final Integer placeId) {
+		return this.getHibernateTemplate().execute(new HibernateCallback<List<MonitorData>>() {
+			@Override
+			public List<MonitorData> doInHibernate(Session session) throws HibernateException {
+				Query query = session.createQuery("from MonitorData where place.p_id = " + placeId + "order by dt_id desc");
+				query.setFirstResult(0);
+				query.setMaxResults(30);
+				return query.list();
+			}
+		});
+	}
+
+	@Override
+	public List<MonitorData> searchForToday(final String todayTime) {
+		return this.getHibernateTemplate().execute(new HibernateCallback<List<MonitorData>>() {
+			@Override
+			public List<MonitorData> doInHibernate(Session session) throws HibernateException {
+				List<MonitorData> list = session.createQuery("from MonitorData where dt_from_time like '" + todayTime + "%'").list();
+				return list;
 			}
 		});
 	}

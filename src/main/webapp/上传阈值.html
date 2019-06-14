@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css">
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<body>
+    <table  id="tb_user"></table>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/1.10.0/jquery.js"></script> <!-- jQuery Library -->
+<script src="js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+<script type="text/javascript">
+    var curRow = {};
+    $(function () {
+        $("#tb_user").bootstrapTable({
+            url: "http://39.108.77.106/ai_monitor/usr/ac_worker_info",
+            contentType: "application/x-www-form-urlencoded",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
+            dataType: "json",//期待返回数据类型
+            method: "get",//请求方式
+            toolbar: "#toolbar",
+            idField: "Id",
+            pagination: true,
+            showRefresh: true,
+            search: true,
+            clickToSelect: true,
+            queryParams: function (param) {
+                return {};
+            },
+            responseHandler:function(res){      //初始化数据格式
+                console.log(res.worker_data);
+                res = res.worker_data;
+                return res
+            },
+            columns: [{
+                checkbox: true
+            }, {
+                field: "w_name",
+                title: "用户名",
+                formatter: function (value, row, index) {
+                    console.log(value,row.Id,index)
+                    return "<a href=\"#\" name=\"w_name\" data-type=\"text\" data-pk=\""+row.Id+"\" data-title=\"用户名\">" + value + "</a>";
+                }
+            }, {
+                field: "w_contact",
+                title: "年龄",
+            }, {
+                field: "Birthday",
+                title: "生日",
+
+            },
+            {
+                field: "w_place",
+                title: "部门"
+            }],
+            onClickRow: function (row, $element) {
+                curRow = row;
+            },
+            onLoadSuccess: function (aa, bb, cc) {
+                $("#tb_user a").editable({
+                    url: function (params) {
+                        var sName = $(this).attr("name");
+                        console.log(sName)
+                        curRow[sName] = params.value;
+                        console.log(curRow);
+                        $.ajax({
+                            type: 'POST',
+                            url: "/Editable/Edit",
+                            data: curRow,
+                            dataType: 'JSON',
+                            success: function (data, textStatus, jqXHR) {
+                                alert('保存成功！');
+                            },
+                            error: function () { alert("error");}
+                        });
+                    },
+                    type: 'text'
+                });
+            },
+        });
+    });</script>
+
+</html >

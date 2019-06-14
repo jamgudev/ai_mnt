@@ -33,7 +33,7 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.show_sql">true</prop>
+                <!--<prop key="hibernate.show_sql">true</prop>-->
                 <prop key="hibernate.format_sql">true</prop>
 
                 <!-- 配置使用 hibernate-c3p0 连接池的核心信息 -->
@@ -82,14 +82,29 @@
     
     <bean name="searchAction" class="com.hc.action.SearchAction" scope="prototype" >
     	<property name="us" ref="us"></property>
+        <property name="ms" ref="ms" />
     </bean>
     
     <bean name="us" class="com.hc.service.impl.UserServiceImpl" >
-    	<property name="ud" ref="ud"></property>
+    	<property name="ud" ref="ud"/>
     </bean>
     
     <bean name="ud" class="com.hc.dao.impl.UserDaoImpl" >
     	<property name="sessionFactory" ref="sessionFactory" ></property>
     </bean>
-    
+
+    <bean name="relayAction" class="com.hc.action.WebSocektRelayAction" scope="prototype" >
+        <property name="is" ref="is"/>
+    </bean>
+
+    <bean name="is" class="com.hc.service.impl.SocketServiceImpl">
+        <property name="sd" ref="sd" />
+    </bean>
+
+    <bean name="sd" class="com.hc.dao.impl.SocketDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+
+
 </beans>

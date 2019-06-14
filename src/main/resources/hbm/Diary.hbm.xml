@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.hc.domain.Diary" table="t_diary">
+        <id name="d_id" >
+            <generator class="native" />
+        </id>
+        <many-to-one name="monitorData" column="d_dt_id" class="com.hc.domain.MonitorData" />
+        <many-to-one name="manager" column="d_m_id" class="com.hc.domain.Manager"/>
+        <property name="do_what" />
+        <property name="time" length="32"/>
+    </class>
+
+</hibernate-mapping>

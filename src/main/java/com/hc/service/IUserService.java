@@ -14,5 +14,10 @@ public interface IUserService {
 	JSONObject mainSearch();
 
 	JSONObject searchWorkers(DoMain dm);
-	
+
+    JSONObject getUrl(DoMain dm);
+
+	JSONObject searchMostNumberFor30Days(DoMain dm);
+
+	JSONObject searchForToday();
 }

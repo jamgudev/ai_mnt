@@ -9,6 +9,44 @@ public class UtilBean {
 	private String p_name;
 	private Integer p_num;
 
+	private Integer mn_dt_id;
+	private String cmd_id;
+	private String vd_secret;
+
+	private Integer id;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getMn_dt_id() {
+		return mn_dt_id;
+	}
+
+	public void setMn_dt_id(Integer mn_dt_id) {
+		this.mn_dt_id = mn_dt_id;
+	}
+
+	public String getCmd_id() {
+		return cmd_id;
+	}
+
+	public void setCmd_id(String cmd_id) {
+		this.cmd_id = cmd_id;
+	}
+
+	public String getVd_secret() {
+		return vd_secret;
+	}
+
+	public void setVd_secret(String vd_secret) {
+		this.vd_secret = vd_secret;
+	}
+
 	public String getP_name() {
 		return p_name;
 	}

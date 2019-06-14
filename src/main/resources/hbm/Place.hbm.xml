@@ -19,6 +19,7 @@
         </set>
 
         <property name="p_name" length="32" unique="true" />
+        <property name="p_threh" length="16"/>
     </class>
 
 </hibernate-mapping>

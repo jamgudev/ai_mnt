@@ -20,10 +20,31 @@ public class MonitorData implements Serializable {
     private String dt_vd_url;            // 视频地址
     private String dt_alert_level;		// 警报级别
     private String dt_mnt_diary_url;
+    private String dt_mnt_pic_url;
 
     private Place place = new Place(); // 地点
     @KeyProperty("wkr_id")
     private Set<Worker> workers = new HashSet<>();
+
+    private Set<ShellData> commands = new HashSet<>();
+
+    private Set<Diary> diaries = new HashSet<>();
+
+    public Set<Diary> getDiaries() {
+        return diaries;
+    }
+
+    public void setDiaries(Set<Diary> diaries) {
+        this.diaries = diaries;
+    }
+
+    public Set<ShellData> getCommands() {
+        return commands;
+    }
+
+    public void setCommands(Set<ShellData> commands) {
+        this.commands = commands;
+    }
 
     public String getDt_alert_level() {
 		return dt_alert_level;
@@ -120,4 +141,12 @@ public class MonitorData implements Serializable {
 				+ ", dt_vd_url=" + dt_vd_url + ", dt_alert_level=" + dt_alert_level + ", dt_mnt_diary_url="
 				+ dt_mnt_diary_url + ", place=" + place + ", workers=" + workers + "]";
 	}
+
+    public String getDt_mnt_pic_url() {
+        return dt_mnt_pic_url;
+    }
+
+    public void setDt_mnt_pic_url(String dt_mnt_pic_url) {
+        this.dt_mnt_pic_url = dt_mnt_pic_url;
+    }
 }

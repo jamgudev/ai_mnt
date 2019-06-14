@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+
+    //json to js
+    var obj = JSON.parse('{"id": "client", "place_id": "中华楼" , "msg":{"reset_number":600}}');
+
+    console.log(obj);
+
+    //js to json
+    var json = JSON.stringify({id: 'client', place_id: '钟海楼' , msg :'rest_number'});
+
+    console.log(json)
+
+    function send(){
+        var message = json;
+        websocket.send(message);
+    }
+    //https://www.cnblogs.com/goloving/p/9108462.html
+    // initSocket();
+    // function initSocket(){
+    //     webSocket = new WebSocket('ws://'+window.location.host+'/header_soc');
+    //     imageSocket = new WebSocket('ws://'+window.location.host+'/capture_soc');
+    //     flashSocket = new WebSocket('ws://'+window.location.host+'/live_soc');
+    //     //webSocket 对象
+    //     webSocket.onerror = function (event) {
+    //         onError(event);
+    //     };
+    //     webSocket.onopen = function (event) {
+    //         onOpen(event);
+    //     };
+    //     webSocket.onmessage = function (event) {
+    //         onMessage(event);
+    //     };
+    //     //imageSocket 对象
+    //     imageSocket.onerror = function (event) {
+    //         onError(event);
+    //     };
+    //     imageSocket.onopen = function (event) {
+    //         onOpenImg(event);
+    //     };
+    //     imageSocket.onmessage = function (event) {
+    //         onMessageImg(event);
+    //     };
+    //     //flashSocket 对象
+    //     flashSocket.onerror = function (event) {
+    //         onError(event);
+    //     };
+    //     flashSocket.onopen = function (event) {
+    //         onOpenFlash(event);
+    //     };
+    //     flashSocket.onmessage = function (event) {
+    //         onMessageFlash(event);
+    //     };
+    // }
+
+
+</script>
+</html>

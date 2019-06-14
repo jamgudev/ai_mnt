@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by GOPENEDD on 2019/5/19
  */
+@SuppressWarnings({"WeakerAccess", "unused", "JavaDoc"})
 public class WebSocektRelayAction extends ActionSupport implements ModelDriven<DoMain> {
 
     private DoMain dm = new DoMain();
@@ -25,7 +26,7 @@ public class WebSocektRelayAction extends ActionSupport implements ModelDriven<D
             .get(org.apache.struts2.StrutsStatics.HTTP_RESPONSE);
 
     /**
-     * cd.md.dt_id  数据ID        Integer
+     * md.place.p_name   地点名称
      * u.vd_secret  播放密码       String
      *
      * return:
@@ -39,7 +40,7 @@ public class WebSocektRelayAction extends ActionSupport implements ModelDriven<D
     }
 
     /**
-     * cd.md.dt_id  数据ID        Integer
+     * u.cmd_id  数据ID        Integer
      *
      * @throws Exception
      */

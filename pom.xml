@@ -11,8 +11,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- 统一各个框架版本 -->
     <struts.version>2.3.36</struts.version>
-    <spring.version>4.3.8.RELEASE</spring.version>
-    <hibernate.version>5.1.7.Final</hibernate.version>
+    <spring.version>5.1.1.RELEASE</spring.version>
+    <hibernate.version>5.3.6.Final</hibernate.version>
   </properties>
   <dependencies>
     <dependency>
@@ -34,6 +34,13 @@
       <artifactId>spring-web</artifactId>
       <version>${spring.version}</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
     <!-- Spring整合ORM框架依赖 -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -118,12 +125,6 @@
       <version>2.11.1</version>
     </dependency>
     <!-- webSocket denpendency -->
-    <dependency>
-      <groupId>javax.websocket</groupId>
-      <artifactId>javax.websocket-api</artifactId>
-      <version>1.1</version>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>

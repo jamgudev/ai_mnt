@@ -1,47 +1,55 @@
 package com.hc.bean;
 
+import com.hc.domain.Manager;
 import com.hc.domain.MonitorData;
 import com.hc.domain.Place;
 import com.hc.domain.Worker;
 
 public class DoMain {
 
-	private MonitorData md;
-	private Worker wk;
-	private Place p;
-	
-	private UtilBean u; 
+    private MonitorData md;
+    private Worker wk;
+    private Place p;
+    private UtilBean u;
+    private Manager m;
 
-	public Worker getWk() {
-		return wk;
-	}
+    public Manager getM() {
+        return m;
+    }
 
-	public void setWk(Worker wk) {
-		this.wk = wk;
-	}
+    public void setM(Manager m) {
+        this.m = m;
+    }
 
-	public Place getP() {
-		return p;
-	}
+    public MonitorData getMd() {
+        return md;
+    }
 
-	public void setP(Place p) {
-		this.p = p;
-	}
+    public void setMd(MonitorData md) {
+        this.md = md;
+    }
 
-	public MonitorData getMd() {
-		return md;
-	}
+    public Worker getWk() {
+        return wk;
+    }
 
-	public void setMd(MonitorData md) {
-		this.md = md;
-	}
+    public void setWk(Worker wk) {
+        this.wk = wk;
+    }
 
-	public UtilBean getU() {
-		return u;
-	}
+    public Place getP() {
+        return p;
+    }
 
-	public void setU(UtilBean u) {
-		this.u = u;
-	}
-	
+    public void setP(Place p) {
+        this.p = p;
+    }
+
+    public UtilBean getU() {
+        return u;
+    }
+
+    public void setU(UtilBean u) {
+        this.u = u;
+    }
 }

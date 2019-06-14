@@ -15,7 +15,6 @@
             <key column="mn_worker_id"/>
             <many-to-many class="com.hc.domain.MonitorData" column="mn_data_id" />
         </set>
-
         <property name="wkr_name" length="32" />
         <property name="wkr_contact" unique="true" />
 

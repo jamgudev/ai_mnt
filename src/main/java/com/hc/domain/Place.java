@@ -16,6 +16,7 @@ public class Place implements Serializable {
     private Set<MonitorData> monitorDatas = new HashSet<>();
 
     private String p_name;      // 地点名称
+    private Integer p_threh;    // 阈值
 
     public Set<MonitorData> getMonitorDatas() {
         return monitorDatas;
@@ -49,5 +50,11 @@ public class Place implements Serializable {
         this.p_name = p_name;
     }
 
+    public Integer getP_threh() {
+        return p_threh;
+    }
 
+    public void setP_threh(Integer p_threh) {
+        this.p_threh = p_threh;
+    }
 }

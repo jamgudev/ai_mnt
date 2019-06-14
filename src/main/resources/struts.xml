@@ -7,9 +7,8 @@
 <struts>
 	<constant name="struts.objectFactory" value="spring" />
 	<constant name="struts.multipart.maxSize" value="1048576000"/>
-	<constant name="struts.action.excludePattern" value="/swagger/*"/>
-	<constant name="struts.action.excludePattern" value="/websocket"></constant>
-	<!-- <constant name="struts.enable.DynamicMethodInvocation" value="true" 
+	<constant name="struts.action.excludePattern" value="/wb/.*"/>
+	<!-- <constant name="struts.enable.DynamicMethodInvocation" value="true"
 		></constant> -->
 	<package name="updateAction" namespace="/admin"
 		extends="struts-default">
@@ -19,7 +18,11 @@
 	</package>
 	
 	<package name="searchAction" namespace="/usr" extends="struts-default">
-		<action name="ac_*" class="com.hc.action.SearchAction" method="{1}" ></action>
+		<action name="ac_*" class="com.hc.action.SearchAction" method="{1}" />
 	</package>
-	
+
+	<package name="relayAction" namespace="/rlay" extends="struts-default">
+		<action name="wk_*" class="com.hc.action.WebSocektRelayAction" method="{1}" />
+	</package>
+
 </struts>
