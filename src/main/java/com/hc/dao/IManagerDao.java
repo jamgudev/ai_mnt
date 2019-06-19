@@ -12,7 +12,7 @@ public interface IManagerDao {
 
 	int updatePicUrl(Integer picUrl, String path);
 
-    int updateThreh(Integer id, Integer threh);
+    int updateThreh(String placeName, Integer threh);
 
 	int checkNull(Integer id);
 
@@ -25,4 +25,6 @@ public interface IManagerDao {
 	Integer updateMntWorker(Integer dtId, Integer wkId);
 
 	Integer getMaxId();
+
+	Integer updateDiary(Diary diary);
 }

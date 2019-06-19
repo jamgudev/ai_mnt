@@ -176,44 +176,44 @@ public class MangaerServiceImpl implements IManagerService {
         return dir.delete();
     }
 
-    private void deletePic(String url) {
+    /*private void deletePic(String url) {
         String path = PATH_REAL + url;
         File file = new File(path);
         if (file.exists())
             file.delete();
-    }
+    }*/
 
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
     public JSONObject updateThreh(DoMain dm) {
-//        Place p = dm.getP();
-//        Integer pId = p.getP_id();
-//        Integer threh = p.getP_threh();
-//        int result = md.updateThreh(pId, threh);
-//        JSONObject jso = new JSONObject();
-//
-//        // 记录操作
-//        Manager m = dm.getM();
-//        Integer mId = m.getM_id();
-//        Diary d = new Diary();
-//        d.setManager(m);
-//        d.setDo_what("将地点阈值修改为: " + threh);
-//        int result2 = md.recordDiary(pId, mId, getCurentTime(), );
+        Place place = dm.getP();
+        String placeName = place.getP_name();
+        Integer placeThreh = place.getP_threh();
 
-//        if (result >= 1 && result2 >= 1) {
-//            jso.put("status", 200);
-//            jso.put("msg", "修改阈值成功, 已将本次操作上传至日志");
-//        } else {
-//            jso.put("status", 400);
-//            jso.put("msg", "修改阈值失败");
-//        }
-
-//        return jso;
-        return null;
+        // 修改阈值
+        JSONObject jso = new JSONObject();
+        if (md.updateThreh(placeName, placeThreh) > 0) {
+            // 保存记录
+            String curentTime = getCurentTime();
+            Diary diary = new Diary();
+            diary.setManager(dm.getM());
+            diary.setTime(curentTime);
+            diary.setDo_what("将" + placeName + "地点阈值修改为" + placeThreh);
+            diary.setMonitorData(null);
+            if (dm.getMd() != null) diary.setMonitorData(dm.getMd());
+            md.updateDiary(diary);
+            jso.put("status", 200);
+            jso.put("msg", "阈值修改成功");
+            return jso;
+        } else {
+            jso.put("status", 400);
+            jso.put("msg", "阈值修改失败");
+        }
+        return jso;
     }
 
     private String getCurentTime() {
-        SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         return format.format(c.getTime());

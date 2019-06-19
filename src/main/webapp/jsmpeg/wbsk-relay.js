@@ -75,6 +75,14 @@ var streamServer = http.createServer( function(request, response) {
 		request.socket.remotePort
 	);
 	request.on('data', function(data){
+		if (it == 0)
+		{
+			console.log(
+				'-------data------: '+ data
+			);
+			it = it + 1;
+		}
+        
 		socketServer.broadcast(data);
 		if (request.socket.recording) {
 			request.socket.recording.write(data);

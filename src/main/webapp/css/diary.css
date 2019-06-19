@@ -1,0 +1,83 @@
+html,
+body {
+  overflow-x: hidden;
+}
+.bootstrap-select {
+  border: none;
+  box-shadow: none;
+}
+.bootstrap-select .btn-default {
+  background: rgba(0, 0, 0, 0.25) !important;
+  color: #dcdcdc;
+  border: none;
+}
+.bootstrap-select .btn-default:focus,
+.bootstrap-select .btn-default :hover {
+  color: white;
+}
+#beginDate,
+#endDate {
+  height: 32px;
+  width: 180px;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: none;
+  color: white;
+  font-size: 14px;
+  vertical-align: middle;
+}
+/* WebKit browsers */
+input::-webkit-input-placeholder {
+  color: #dcdcdc;
+  font-size: 14px;
+}
+/* Mozilla Firefox 4 to 18 */
+input:-moz-placeholder {
+  color: #dcdcdc;
+  opacity: 1;
+  font-size: 14px;
+}
+/* Mozilla Firefox 19+ */
+input::-moz-placeholder {
+  color: #dcdcdc;
+  opacity: 1;
+  font-size: 14px;
+}
+/* input提示文字*/
+input:-ms-input-placeholder {
+  color: #dcdcdc;
+  font-size: 14px;
+}
+#search-table {
+  margin-top: 20px;
+  overflow: hidden;
+  display: none;
+  border: none;
+}
+.fixed-table-border {
+  display: none;
+}
+.diary-video {
+  height: 400px;
+  padding: 15px;
+}
+.searchMore > .col-md-5,
+.searchMore > .col-md-7 {
+  padding-left: 0;
+}
+.showBoolean {
+  display: none ;
+}
+.search-select {
+  width: 120px;
+}
+span[class^="view"] {
+  padding: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  border-radius: 2px;
+}
+.showSearch-box {
+  max-height: 200px;
+}

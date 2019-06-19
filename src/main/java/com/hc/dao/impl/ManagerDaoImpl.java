@@ -64,11 +64,11 @@ public class ManagerDaoImpl extends HibernateDaoSupport implements IManagerDao {
     }
 
     @Override
-    public int updateThreh(final Integer id, final Integer threh) {
+    public int updateThreh(final String placeName, final Integer threh) {
         return this.getHibernateTemplate().execute(new HibernateCallback<Integer>() {
             @Override
             public Integer doInHibernate(Session session) throws HibernateException {
-                String hql = String.format("update Place p set p.p_threh = %d where p.p_id = %d", threh, id);
+                String hql = String.format("update Place p set p.p_threh = %d where p.p_name = '%s'", threh, placeName);
 //                String sql = String.format("update t_place set p_threh = %d where p_id = %d", threh, id);
                 return session.createQuery(hql).executeUpdate();
             }
@@ -155,5 +155,10 @@ public class ManagerDaoImpl extends HibernateDaoSupport implements IManagerDao {
                 return id;
             }
         });
+    }
+
+    @Override
+    public Integer updateDiary(Diary diary) {
+        return (Integer) this.getHibernateTemplate().save(diary);
     }
 }

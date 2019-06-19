@@ -1,321 +1,675 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>智能人流监测系统</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="robots" content="all,follow">
-  <!-- Bootstrap CSS-->
-  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome CSS-->
-  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
-  <!-- Fontastic Custom icon font-->
-  <link rel="stylesheet" href="css/fontastic.css">
-  <!-- Google fonts - Poppins -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
-  <!-- theme stylesheet-->
-  <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
-  <!-- Custom stylesheet - for your changes-->
-  <link rel="stylesheet" href="css/custom.css">
-  <!--<link rel="shortcut icon" href="img/favicon.ico">-->
-  <link rel="stylesheet" href="css/homepage.css">
-  <link rel="stylesheet" href="css/diary.css">
-  <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-  <!--laydate.css-->
-  <link rel="stylesheet" href="laydate/theme/default/laydate.css">
-  <!--ntk-->
-  <link rel="stylesheet" href="css/ntk.css">
-  <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>智能人流监测系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="UTF-8">
+
+    <meta name="description" content="Violate Responsive Admin Template">
+    <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+
+    <title>云监测平台</title>
+
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <!--<link href="css/calendar.css" rel="stylesheet">-->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/icons.css" rel="stylesheet">
+    <link href="css/generics.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/video-js.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css" />
+    <link rel="stylesheet" href="laydate/theme/default/laydate.css" >
+    <!--<link href="css/media-player.css" rel="stylesheet">-->
+
+    <!--<link rel="stylesheet" href="css/alert.css">-->
+    <link rel="stylesheet" href="css/diary.css">
 </head>
-<body>
-<div class="page">
-  <!-- Main Navbar-->
-  <header class="header">
-    <nav class="navbar">
-      <div class="container-fluid">
-        <div class="navbar-holder d-flex align-items-center justify-content-between">
-          <!-- Navbar Header-->
-          <div class="navbar-header">
-            <!-- Navbar Brand -->
-            <a href="index.html" class="navbar-brand d-none d-sm-inline-block">
-              <div class="brand-text d-none d-lg-inline-block"><span>智能人流监测系统 </span></div>
-              <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>AIdo</strong></div></a>
-            <!-- Toggle Button-->
-            <a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
-          </div>
-          <!-- Navbar Menu -->
-          <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-            <!-- Notifications-->
-            <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell-o"></i><span class="badge bg-red badge-corner">12</span></a>
-            </li>
-            <!-- Messages -->
-            <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-user-o"  data-toggle="modal" data-target="#myModal"></i></a>
-            </li>
-            <!-- Logout    -->
-            <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
-          </ul>
+<body id="skin-blur-city">
+
+<header id="header" class="media">
+    <a href="" id="menu-toggle"></a>
+    <a class="logo pull-left" href="index.html">云预警平台</a>
+
+    <div class="media-body">
+        <div class="media" id="top-menu">
+
+            <!--//显示时间-->
+            <div id="time" class="pull-right">
+                <span id="hours"></span>
+                :
+                <span id="min"></span>
+                :
+                <span id="sec"></span>
+            </div>
+
         </div>
-      </div>
-    </nav>
-  </header>
-  <div class="page-content d-flex align-items-stretch">
-    <!-- Side Navbar -->
-    <nav class="side-navbar">
-      <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
-      <ul class="list-unstyled">
-        <li class=""><a href="index.html"> <i class="icon-home"></i>主页 </a></li>
-        <li ><a href="follow.html"> <i class="icon-grid"></i>实时监控</a></li>
-        <li class="active"><a href="diary.html"> <i class="fa fa-bar-chart"></i>监控日志 </a></li>
-        <li><a href="#"> <i class="icon-padnote"></i>已录入信息 </a></li>
-        <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
-          <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-            <li><a href="#">Page</a></li>
-            <li><a href="#">Page</a></li>
-            <li><a href="#">Page</a></li>
-          </ul>
-        </li>
-        <li><a href="login.html"> <i class="icon-interface-windows"></i>Login page </a></li>
-      </ul>
-    </nav>
-    <div class="content-inner">
-      <div class=" right-content">
-        <!-- 正文内容部分 -->
-        <div class="container-fluid content-nav">监控日志</div>
-        <div class="diary-box">
-          <div class="dateAndNum">
-            <span class="content-head-left"></span>
-            <span class="content-head-right"></span>
-          </div>
-          <div class="row diary-line">
-            <div id="diary" style="width:100%; height:350px"></div>
-          </div>
-          <div class="row find-box">
-            <div class="col-md-3 ">
-              <p class="title-font">日志查询</p>
-              <form action="https://search.bilibili.com/all?keyword=%E6%B0%B4%E6%BB%B4%E5%9B%A2%E9%98%9F&from_source=banner_search">
-                <div class="diary-find-font">
-                  <p class="">请输入你要查询的设备</p>
-                  <div class="setting-num-box">
-                    <span class="setting-title">设备：</span>
-                    <div class="setting-number">
-                      <select class="form-control   setting-select" required name="">
-                        <option >12311</option>
-                        <option >21134</option>
-                        <option>36243</option>
-                        <option>44377</option>
-                        <option>54454</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="setting-num-box">
-                    <span class="setting-title">日期：</span>
-                    <div class="setting-number">
-                      <div class="form-group ">
-                        <!--指定 date标记-->
-                        <!--<div class='input-group date' id='datetimepicker1'>-->
-                            <!--<span class="input-group-addon data-input">-->
-                                <!--<input  type='text' required class="form-control text-center " name="" />-->
-                            <!--</span>-->
-                        <!--</div>-->
-                        <input type="text" class="demo-input" required autocomplete="off" placeholder="请选择日期" id="datechoice">
-                      </div>
-                    </div>
-                  </div>
-                  <input type="submit" class="btn btn-success find-btn" value="查询" >
+    </div>
+</header>
+
+<!--<div class="clearfix"></div>-->
+
+<section id="main" class="p-relative" role="main">
+    <!-- Sidebar -->
+    <aside id="sidebar">
+
+        <!-- Side Menu -->
+        <ul class="list-unstyled side-menu">
+            <li class="">
+                <a class="sa-side-home" href="index.html">
+                    <span class="menu-item">基本信息</span>
+                </a>
+            </li>
+
+            <li class="active">
+                <a class="sa-side-calendar" href="diary.html">
+                    <span class="menu-item">历史查询</span>
+                </a>
+            </li>
+            <li>
+                <a class="sa-side-table" href="alert.html">
+                    <span class="menu-item">正在警报</span>
+                </a>
+            </li>
+        </ul>
+
+    </aside>
+
+    <!-- Content -->
+    <section id="content" class="container"  >
+        <h4 class="page-title">日志</h4>
+
+        <form action="javascript:;" method="post">
+            <div class="listview-header">
+                <span class="search-number">
+                    <span>
+                        设备名：
+                    </span>
+                    <select name="p.p_name" id="search-select"  data-first-option="false" title='请选择' ></select>
+                </span>
+                <span class="search-begin">
+                    <span>
+                        开始时间：
+                    </span>
+                   <input type="text" name="md.dt_from_time" id="beginDate" class=""  autocomplete="off" placeholder="请选择开始时间" >
+                </span>
+                <span class="search-end">
+                    <span>
+                        结束时间：
+                    </span>
+                    <input type="text" name="md.dt_to_time" id="endDate" class=""  autocomplete="off" placeholder="请选择结束时间" >
+                </span>
+                <span class="">
+                    <span>
+                        警报状态：
+                    </span>
+                     <select name="md.dt_alert_level" id="attitude" class="selectpicker"  data-first-option="false" title='请选择' >
+                          <option value="" style="text-align: center;border-bottom: 1px dotted #999;
+                          border-right:15px dotted transparent; border-left:15px dotted transparent; ">请选择</option>
+                          <option value="一级">一级</option>
+                          <option value="二级">二级</option>
+                          <option value="三级">三级</option>
+                     </select>
+                </span>
+                <span>
+                    <button id="reset" class="btn " type="submit" value=""><span class="glyphicon glyphicon-refresh"></span></button>
+                    <button id="search-submit" class="btn " type="submit" value=""><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </form>
+
+        <div id="search-table" class="  drawer animated toggled">
+            <div class="showSearch-box ">
+                <table id="showSearch" class="table table-hover" ></table>
+            </div>
+        </div>
+
+        <div class="row searchMore">
+            <div class="col-md-5">
+                <div class="diary-video hidden tile animated  fadeInLeft ">
+                    <video id='my-video' class='vjs-big-play-centered video-js'
+                           src=""
+                           style="width: 100%; height: 100%;">
+                        <!--video/002OUTPUT.mp4-->
+                        <!--<source id="video-source" src='' type='video/mp4'>-->
+                        <!--<source src='' type='video/webm'>-->
+                        <!--<source src='' type='video/ogg'>-->
+                        <p class='vjs-no-js'>
+                            To view this video please enable JavaScript, and consider upgrading to a web browser that
+                            <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+                        </p>
+                    </video>
                 </div>
-              </form>
             </div>
-            <div class="col-md-9">
-              <div class="diary-detail">
-
-              </div>
+            <div class="col-md-7">
+                <div class="tile">
+                    <div id="dayDiary" class="hidden animated fadeInRight " ></div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--你太狂-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog ntk-limit-height" role="document">
-    <div class="modal-content Bb-modal">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">安保人员信息</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-striped security-list">
-          <tr class="list-head">
-            <td class="">姓名</td>
-            <td class="">工号</td>
-            <td class="">电话</td>
-            <td class="send-message">短信发送</td>
-          </tr>
-          <tr class="list-info">
-            <td class="">张三</td>
-            <td class="">54088</td>
-            <td class="">1354879468</td>
-            <td class="send-message">
-              <button type="button" class="btn btn-info">发送</button>
-            </td>
-          </tr>
-          <tr class="list-info">
-            <td class="">王五</td>
-            <td class="">54088</td>
-            <td class="">1354879468</td>
-            <td class="send-message">
-              <button type="button" class="btn btn-info">发送</button>
-            </td>
-          </tr>
-          <tr class="list-info">
-            <td class="">王五</td>
-            <td class="">54088</td>
-            <td class="">1354879468</td>
-            <td class="send-message">
-              <button type="button" class="btn btn-info">发送</button>
-            </td>
-          </tr>
-          <tr class="list-info">
-            <td class="">王五</td>
-            <td class="">54088</td>
-            <td class="">1354879468</td>
-            <td class="send-message">
-              <button type="button" class="btn btn-info">发送</button>
-            </td>
-          </tr>
-          <tr class="list-info">
-            <td class="">王五</td>
-            <td class="">54088</td>
-            <td class="">1354879468</td>
-            <td class="send-message">
-              <button type="button" class="btn btn-info">发送</button>
-            </td>
-          </tr>
-          <tr class="list-info">
-            <td class="">王五</td>
-            <td class="">54088</td>
-            <td class="">1354879468</td>
-            <td class="send-message">
-              <button type="button" class="btn btn-info">发送</button>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="modal-footer Bb-modal-footer">
-        <nav aria-label="...">
-          <ul class="pager">
-            <li><a id="pre">上一页</a></li>
-            <li id="page-num">1</li>
-            <li><a id="next">下一页</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- JavaScript files-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/popper.js/umd/popper.min.js"> </script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="js/jquery.cookie.js"></script>
+        <div class="row">
+            <div class="tile">
+                <div id="container" class="fadeInDownBig " ></div>
+            </div>
+        </div>
+    </section>
 
-<!-- Main File-->
-<script src="js/front.js"></script>
+</section>
 
-<script src="https://img.highcharts.com.cn/highstock/highstock.js"></script>
-<script src="https://img.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
-<!--日期选择-->
-<!--<script src="js/moment-with-locales.min.js"></script>-->
-<!--<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>-->
+<!-- Javascript Libraries -->
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script> <!-- jQuery Library -->
+<script src="js/jquery-ui.min.js"></script> <!-- jQuery UI -->
+<!--<script src="js/jquery.easing.1.3.js"></script> &lt;!&ndash; jQuery Easing - Requirred for Lightbox + Pie Charts&ndash;&gt;-->
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Charts -->
+<script src="js/charts/jquery.flot.js"></script> <!-- Flot Main -->
+<script src="js/charts/jquery.flot.time.js"></script> <!-- Flot sub -->
+<script src="js/charts/jquery.flot.animator.min.js"></script> <!-- Flot sub -->
+<script src="js/charts/jquery.flot.resize.min.js"></script> <!-- Flot sub - for repaint when resizing the screen -->
+
+<script src="js/sparkline.min.js"></script> <!-- Sparkline - Tiny charts -->
+<script src="js/easypiechart.js"></script> <!-- EasyPieChart - Animated Pie Charts -->
+<script src="js/charts.js"></script> <!-- All the above chart related functions -->
+<!-- UX -->
+<script src="js/scroll.min.js"></script> <!-- Custom Scrollbar -->
+<!-- Other -->
+<script src="js/calendar.min.js"></script> <!-- Calendar -->
+<script src="js/feeds.min.js"></script> <!-- News Feeds -->
+<!-- All JS functions -->
+<script src="js/functions.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+<!--video.js-->
+<script src="js/video.min.js"></script>
+<!--bootstrap-select-->
+<script src="js/bootstrap-select.js" type="text/javascript" charset="utf-8"></script>
+<!--laydate-->
 <script src="laydate/laydate.js"></script>
-<!--nav-->
-<script src="js/nav.js"></script>
-
+<!--<script src="js/media-player.min.js"></script> &lt;!&ndash; Video Player &ndash;&gt;-->
+<!--hightcharts-->
+<script src="https://img.highcharts.com.cn/highstock/highstock.js"> </script>
+<script src="https://img.highcharts.com.cn/highcharts/highcharts-more.js"></script>
+<script src="https://img.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+<script src="https://img.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
 <script>
+
+
     $(function(){
 
-        //图表
-        (function(){
-            //日期选择
-            lay('#version').html('-v'+ laydate.v);
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#datechoice', //指定元素
-                theme:"#1E9FFF",
-                min:"2019-1-1",
-                max:""
+        //获取地点
+        $.get("http://39.108.77.106/ai_monitor/usr/ac_plh_place" , function(res){
+            console.log(res);
+            var $select = $("#search-select");
+            var html = "  <option value='' style='text-align: center;border-bottom: 1px dotted #999;\n" +
+                "border-right:15px dotted transparent; border-left:15px dotted transparent;'>请选择</option>";
+            res.data.forEach(function(a,b,c){
+                // console.log(a.city);//索引对象
+                // console.log(b);//索引
+                // console.log(c)//数组对象v
+                html +=  "<option  value='"+a.p_id+"'>"+a.p_name+"</option>";
+                $select.html(html);
+                $select.selectpicker('refresh');//必须加，刷新select
             });
+        },'json');
 
 
-            //<!--时间戳-->
-            data = [
-                [1553603725000+28800000, 0],
-                [1553603758000+28800000, 22222],
-                [1553603761000+28800000, 33333],
-                [1553603763000+28800000, 44444],
-                [1553604025000+28800000, 55555],
-            ];
-            Highcharts.stockChart('diary', {
-                rangeSelector: {
-                    selected: 1,
-                    enabled:false
+        /**
+         * 获取所有查询设备
+         * @关键字
+         */
+        (function(){
+            $("#search-submit").on("click" , function(){
+                $.ajax({
+                    type:'post',
+                    url:'http://39.108.77.106/ai_monitor/usr/ac_search',
+                    dataType:'json',
+                    data:{'md.dt_from_time':$('#beginDate').val(),'p.p_name':$('#search-select').val(),
+                        'md.dt_to_time':$('#endDate').val(),'md.dt_alert_level':$('#attitude').val()},
+                    success:function(res){
+                        if(res.status ===200 ){
+                            // 显示表格
+                            $("#container,.diary-video,#dayDiary").addClass("hidden");
+
+                            $("#search-table").addClass('show').removeClass('hidden');
+                            //获取查询结果
+                            result(res);
+
+                        }else{
+                            // $("#search-table,#container,.diary-video,#dayDiary").addClass("hidden");
+                            Ewin.alert("未查询到结果！");
+                        }
+                    },
+                    error:function(){
+                        // $("#search-table,#container,.diary-video,#dayDiary").addClass("hidden");
+                        Ewin.alert("查询条件有误！");
+                    }
+                });
+            });
+        })();
+
+
+
+        /**
+         * 重置按钮
+         * @关键字
+         */
+        $("#reset").on("click" , function(){
+            document.getElementById("search-select").options.selectedIndex = 0; //回到初始状态
+            document.getElementById("attitude").options.selectedIndex = 0; //回到初始状态
+            $("#search-select,#attitude").selectpicker('refresh');//对searchPayState这个下拉框进行重置刷新
+            $("#beginDate,#endDate").val("");                       //清空时间
+
+        });
+
+
+        /**
+         * 获取设备详细信息
+         * @关键字
+         */
+        var result = function(res){
+                //为每个查询结果绑定点击事件
+                window.operateEvents = {
+                    'click span[class ^= "view"]': function (e, value, row, index) {
+                        $("tr[data-index = "+index+"]").css("backgroundColor" , "rgba(0,0,0,0.7)").siblings().css("backgroundColor" , "");
+                        $("#container,.diary-video,#dayDiary").removeClass("hidden");
+
+                        video(res,index);
+                        coundAll(res,index);
+                        thirtyTimes(res,index);
+
+                        return false;
+                        // $('body,html').animate({scrollTop:500},1500);
+                        //高度调整
+                        // $("body,html").css("overflow-y" , "auto");
+                    },
+                };
+
+
+                //bootstrap-table添加标签
+                function operateFormatter(value, row, index) {
+                    return [
+                        '<span  class = "view'+index+' glyphicon glyphicon-search label-success" href="javascript:;" ></span>',
+                    ].join('');
+                }
+
+
+                var data = [];
+                for(var i = 0 ; i < res.data.length ; i++ ){
+                    data.push(res.data[i]);
+                }
+                //销毁原来的table
+                $("#showSearch").bootstrapTable('destroy');
+                //渲染table
+                $('#showSearch').bootstrapTable({
+                    data: data,//数据源
+                    height:"200",
+                    search: false,//是否搜索
+                    pagination: false,//是否分页
+                    pageSize: 5,//单页记录数
+                    striped: true,//显示隔行间色
+                    sidePagination: "client",//服务端分页
+                    queryParamsType: "limit",//查询参数组织方式
+                    responseHandler:function(res){      //初始化数据格式
+
+                    },
+                    queryParams: function getParams(params) {
+                        params.other = "otherInfo";
+                        return params;
+                    },
+                    searchOnEnterKey: false,//回车搜索
+                    showRefresh: false,//刷新按钮
+                    showColumns: false,//列选择按钮
+                    buttonsAlign: "right",//按钮对齐方式
+                    // toolbar: "",//指定工具栏
+                    toolbarAlign: "",//工具栏对齐方式
+                    columns: [
+                        {
+                            title: "设备",
+                            field: "dt_place",
+                            // titleTooltip: "this is name"
+                            align: "center",//水平
+                        },
+                        {
+                            field: "dt_preset_n",
+                            title: "阈值",
+                            align: "center",//水平
+                        },
+                        {
+                            field: "dt_alert_lev",
+                            title: "警报状态",
+                            sortable: true,//是否可排序
+                            align: "center",//水平
+                        },
+                        {
+                            field: "dt_people_n",
+                            title: "最高峰值",
+                            sortable: true,//是否可排序
+                            align: "center",//水平
+                        },
+                        {
+                            field: "dt_workers",
+                            title: "处理人员",
+                            align: "center",//水平
+                        },
+                        {
+                            field: "dt_year",
+                            title: "日期",
+                            sortable: true,//是否可排序
+                            align: "center",//水平
+                        },
+                        {
+                            field: "dt_time",
+                            title: "爆发时间段",
+                            align: "center",//水平
+                        },
+                        {
+                            // field: "操作",
+                            title: "操作",
+                            align: "center",//水平
+                            events:operateEvents,
+                            formatter: operateFormatter
+                        },
+                    ],
+
+                    onPostBody:function() {},
+                    locale: "zh-CN", //中文支持
+                    detailView: false, //是否显示详情折叠
+                });
+        };
+
+
+        /**
+         * 获取实时视频数据
+         * @关键字
+         */
+        var video = function(res,index){
+                // http://39.108.77.106
+                var url = "http://39.108.77.106";
+                url += res.data[index].dt_vd_url;
+                console.log(url);
+               $("#my-video").attr("src" , url);
+                var options = {
+                    controlBar:{                              //设置是否显示该组件
+                        currentTimeDisplay:true,
+                        timeDivider:true,
+                        durationDisplay:false,
+                        remainingTimeDisplay:false,//是否显示剩余时间
+                        volumePanel: {
+                            inline: false //默认是true,横着的
+                        }
+                    },
+                    // autoplay: true,//自动播放
+                    // muted:true,//静音
+                    poster:"img/deepblue.png",//视频封面
+                    controls:true,//是否显示组件
+                };
+                player = videojs('my-video', options , function(){
+                    this.on('play',function(){
+                            console.log('正在播放');
+                        }
+                    );
+
+                    //暂停--播放完毕后也会暂停
+                    this.on('pause',function(){
+                        console.log("暂停中")
+                    });
+
+                    // 结束
+                    this.on('ended', function() {
+                        console.log('结束');
+                    })
+
+                });
+                videojs("my-video").ready(function() {
+                    var myPlayer = this;
+                    myPlayer.src(url); /*动态设置video.js播放的地址。*/
+                    // myPlayer.autoplay();
+                });
+        };
+
+
+
+        /**
+         * 人流变化图
+         * @关键字
+         */
+        var coundAll = function(res,index){
+                //<!--时间戳-->
+                data = res.data[index].dt_changing_n_txt;
+                console.log(data)
+                Highcharts.stockChart('dayDiary', {
+                    colors:['rgb(255,117,153)'],
+                    chart:{
+                        backgroundColor:"",
+                    },
+                    rangeSelector: {
+                        selected: 1,
+                        enabled:false
+                    },
+                    title: {
+                        text: '人流变化趋势',
+                        style:{
+                            color:'#FFD600',
+                            fontSize:"15px",
+                            fontFamily: 'open-sans-light'
+                        },
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        dateTimeLabelFormats: {
+                            // second: '%Y-%m-%d<br/>%H:%M:%S',
+                            second: '%H:%M:%S',
+                        },
+                        labels: {                       //轴标签
+                            style: {
+                                color: "white",
+                                fontFamily: 'open-sans-light'
+                            }
+                        }
+                    },
+                    yAxis:{
+                        gridLineColor: 'rgba(0,0,0,1)',     //网格线颜色
+                        labels: {                       //轴标签
+                            style: {
+                                color: "white",
+                                fontFamily: 'open-sans-light'
+                            }
+                        }
+                    },
+                    navigator: {//下边导航栏
+                        xAxis: {
+                            labels: {
+                                style: {
+                                    color: 'white'
+                                },
+                            }
+                        },
+                        maskFill: 'rgba(180, 198, 220, 0.3)',//蒙版
+                    },
+                    credits:{
+                        enabled:false
+                    },
+                    exporting:{
+                        enabled:false
+                    },
+                    tooltip: {
+                        split: false,
+                        shared: true
+                    },
+                    plotOptions: {
+                        series: {
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: '人数',
+                        data: data,
+                    }],
+                });
+
+        };
+
+
+        /**
+         * 进三十日警报
+         * @关键字
+         */
+        var thirtyTimes = function(res,index){
+            var chart = Highcharts.chart('container',{
+                // colors:['#8ad1d8', '#913e0e', ],
+                colors:['#058DC7','#FF9655'],
+                chart: {
+                    backgroundColor:"",
+                    type: 'column'
                 },
                 title: {
-                    text: '人流变化趋势'
+                    text: '近三十次人流爆发峰值',
+                    style:{
+                        color:'#FFD600',
+                        fontSize:"18px",
+                        fontFamily: 'open-sans-light'
+                    },
+                },
+                subtitle: {
+                    text: ''
                 },
                 xAxis: {
-                    type: 'datetime',
-                    dateTimeLabelFormats: {
-                        // second: '%Y-%m-%d<br/>%H:%M:%S',
-                        second: '%H:%M:%S',
+                    categories: [
+                        '2018.1.1','2018.1.2','2018.1.3','2018.1.4','2018.1.5','2018.1.6','2018.1.7',
+                        '2018.1.8',
+                        '2018.1.9','2018.1.10','2018.1.11','2018.1.12',
+                        '2018.1.13','2018.1.14','2018.1.15','2018.1.16','2018.1.17','2018.1.18',
+                        '2018.1.19','2018.1.20','2018.1.21','2018.1.22','2018.1.23','2018.1.24',
+                        '2018.1.25','2018.1.26','2018.1.27','2018.1.28','2018.1.29','2018.1.30',
+                    ],
+                    crosshair: true,
+                    labels: {                       //轴标签
+                        style: {
+                            color: "white",
+                            fontFamily: 'open-sans-light'
+                        }
+                    },
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '人数',
+                        style:{
+                            color:'#FFD600',
+                            fontSize:"15px",
+                            fontFamily: 'open-sans-light'
+                        },
+                    },
+                    labels: {                       //轴标签
+                        style: {
+                            color: "white",
+                            fontFamily: 'open-sans-light'
+                        }
                     }
                 },
                 credits:{
-                    enabled:false
+                    enabled:false,
                 },
                 exporting:{
-                    enabled:false
+                    enabled:false,
+                },
+                legend:{
+                    enabled:false,
                 },
                 tooltip: {
-                    split: false,
-                    shared: true
+                    // head + 每个 point + footer 拼接成完整的 table
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.0f}人</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
                 },
                 plotOptions: {
-                    series: {
-                        showInLegend: true
+                    column: {
+                        borderWidth: 0
                     }
                 },
                 series: [{
-                    name: '人数',
-                    data: data,
-                }],
+                    name: ''+res.data[index].dt_place+'',
+                    // type: 'column',
+                    colorByPoint: true,
+                    data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0,
+                        135.6, 148.5, 216.4, 194.1, 95.6, 54.4,
+                        49.9, 71.5, 106.4, 129.2, 144.0, 176.0,
+                        135.6, 148.5, 216.4, 194.1, 95.6, 54.4,
+                        144.0, 176.0,
+                        135.6, 148.5, 216.4, 194.1
+                    ],
+                }]
             });
+        };
 
-            // $.getJSON('https://data.jianshukeji.com/mock/{template}', function (data) {
-            //     if(data.code !== 1) {
-            //         alert('读取股票数据失败！');
-            //         return false;
-            //     }
-            //     data = data.data;
-            //     // 去掉多余的数据
-            //     Highcharts.each(data, function(d) {
-            //         d.length = 2;
-            //     });
-            //
-            // });
+
+
+        /**
+         * 日期选择
+         * @关键字
+         */
+        (function(){
+            var date = new Date();
+            var Y = date.getFullYear();
+            var M = date.getMonth()+1;
+            var D = date.getDate();
+            //执行一个laydate实例
+            var limitDate = ""+Y+"-"+M+"-"+D+"";
+            laydate.render({
+                elem:"#beginDate", //指定元素
+                type:'datetime',
+                theme:"blue",
+                min:"2019-1-1",
+                max:""+Y+"-"+M+"-"+D+"",
+                show: false,
+                btns:['clear', 'confirm'],//显示按钮
+                change:function(date){
+                    var day = "";
+                    for(var i = 0 ; i < date.search(/\s/) ;i++ ){
+                        day += date[i];
+                    }
+                    limitDate = day;
+                    $("#endDate").remove();
+                    $(".search-end").append("<input type=\"text\" name=\"md.dt_to_time\" id=\"endDate\" class=\"\"  autocomplete=\"off\" placeholder=\"请选择日期\" >")
+                    laydate.render({
+                        elem:"#endDate", //指定元素
+                        type:'datetime',
+                        theme:"blue",
+                        min:limitDate,
+                        max:""+Y+"-"+M+"-"+D+"",
+                        show: false,
+                        btns:['clear', 'confirm'],//显示按钮
+                    });
+                    console.log(day)
+                },
+            });
+            laydate.render({
+                elem:"#endDate", //指定元素
+                type:'datetime',
+                theme:"blue",
+                min:"2019-1-1",
+                max:limitDate,
+                show: false,
+                btns:['clear', 'confirm'],//显示按钮
+            });
         })();
 
-        //
 
     });
 
 </script>
 </body>
-
 </html>

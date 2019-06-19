@@ -8,7 +8,7 @@
             <generator class="native" />
         </id>
 
-        <set name="diaries" inverse="true" cascade="delete"  >
+        <set name="diaries" inverse="true" >
             <key column="d_m_id" />
             <one-to-many class="com.hc.domain.Diary" />
         </set>

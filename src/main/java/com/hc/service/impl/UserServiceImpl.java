@@ -159,6 +159,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public JSONObject getUrl(DoMain dm) {
         Integer id = dm.getMd().getDt_id();
+        if (id == null) return null;
         String url = ud.getUrl(id);
         JSONObject jso = new JSONObject();
         if (!StringUtils.isEmpty(url)) {

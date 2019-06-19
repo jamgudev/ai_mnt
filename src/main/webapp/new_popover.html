@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style>
+    span{
+        height: 200px;
+        width: 200px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        border: 1px solid #0B628D;
+        border-radius: 5px;
+        line-height: 200px;
+        text-align: center;
+    }
+
+</style>
+<body>
+
+    <span id="in_out" class="my_tooltip"  data-newTip="left">Move to here!</span>
+    <div id="in_out_dist" class="popover fade bottom " style=" display: block;">
+        <div class="arrow"></div>
+        <!--<h3 class="popover-title" >style="display: none;"</h3>-->
+        <div class="popover-content">
+            now you look at me !       now you look at me !       now you look at me !
+        </div>
+    </div>
+    <div class="tooltip fade left in" style="top: 13px; left: 1669px; display: block;">
+        <div class="tooltip-arrow"></div>
+        <div class="tooltip-inner">&lt;div&gt;&lt;/div&gt;</div>
+    </div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $(function(){
+        $('[data-toggle="popover"]').popover({placement:'left'});
+        var $title = $("#in_out_dist");
+        $title.css('margin' , 'none');
+        $(".my_tooltip").on("mouseenter" , function(){
+            var direction = $(this).attr('data-newTip');
+            var y = $(this).offset().top;
+            var x = $(this).offset().left;
+            var ele_w = $(this).width();
+            var ele_h = $(this).height();
+            var title_w =$title.width();
+            var title_x,title_y;
+            switch (direction) {
+                case 'top':break;
+                case 'left':
+                        title_x = x - title_w - 12  ;
+                        title_y = y ;
+                        $title.find('.arrow').css('left','102%').css('margin-left' , -6).css('top' ,'50%').css('transform' , 'rotate(90deg)')
+                            .css('border-left', 'none');
+                    break;
+                case 'bottom':
+                        title_x = x + (ele_w - title_w) / 2;
+                        title_y = y + ele_h;
+                    break;
+                case 'right':break;
+            }
+
+            console.log(x,y,ele_w,ele_h);
+
+            $title.css("left" , title_x ).css("top" , title_y);
+            if(!$title.hasClass("in")){
+                $title.addClass("in");
+            }
+        }).on("mouseleave" , function(){
+            if($title.hasClass("in")){
+                $title.removeClass("in");
+            }
+        });
+
+        $title.on("mouseenter" , function(){
+
+        })
+
+
+    });
+
+</script>
+</html>

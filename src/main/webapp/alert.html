@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>智能人流监测系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="UTF-8">
+
+    <meta name="description" content="Violate Responsive Admin Template">
+    <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+
+    <title>云检测平台</title>
+
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css">-->
+    <link rel="stylesheet" href="css/bootstrap-table.min.css">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/calendar.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/form.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/icons.css" rel="stylesheet">
+    <link href="css/generics.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/video-js.min.css">
+    <!--<link href="css/media-player.css" rel="stylesheet">-->
+
+    <link rel="stylesheet" href="css/alert.css">
+</head>
+<body id="skin-blur-city">
+
+<header id="header" class="media">
+    <a href="" id="menu-toggle"></a>
+    <a class="logo pull-left" href="index.html">云预警平台</a>
+
+    <div class="media-body">
+        <div class="media" id="top-menu">
+
+            <!--//显示时间-->
+            <div id="time" class="pull-right">
+                <span id="hours"></span>
+                :
+                <span id="min"></span>
+                :
+                <span id="sec"></span>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<div class="clearfix"></div>
+
+<section id="main" class="p-relative" role="main">
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+
+        <!-- Side Menu -->
+        <ul class="list-unstyled side-menu">
+            <li class="">
+                <a class="sa-side-home" href="index.html">
+                    <span class="menu-item">基本信息</span>
+                </a>
+            </li>
+
+            <li>
+                <a class="sa-side-calendar" href="diary.html">
+                    <span class="menu-item">历史查询</span>
+                </a>
+            </li>
+            <li class="active">
+                <a class="sa-side-table" href="alert.html">
+                    <span class="menu-item">正在警报</span>
+                </a>
+            </li>
+        </ul>
+
+    </aside>
+
+    <!-- Content -->
+    <section id="content" class="container">
+
+            <div class="col-md-8  content-center">
+                <div class="row center-middle tile">
+                    <canvas id="video" style="width: 100%; height:100%"></canvas>
+                </div>
+                <div class="row center-bottom ">
+                    <div id="" class="alert-secu-box ">
+                        <table id="arranged" class="table table-hover" ></table>
+                    </div>
+                </div>
+            </div>
+            <!--右-->
+            <div class="col-md-4  content-right">
+                <div class="row right-top tile">
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3 text-center ">
+                            <h4 class="page-title ">设备</h4>
+                            <div id="alert_place" class="showNum">
+                                1120
+                            </div>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3  text-center ">
+                            <h4 class="page-title ">人流数</h4>
+                            <div id="num" class="showNum">
+                                1,234
+                            </div>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3  text-center">
+                            <h4  class="page-title ">最高峰</h4>
+                            <div id="max_num" class="showNum">
+                                1,521
+                            </div>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                            <h4 class="page-title ">阈值</h4>
+                            <div id="set_num" class="showNum">
+                                287
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row right-middle tile">
+                    <img id="get_img" src="" alt="">
+                </div>
+                <div class="row right-bottom tile">
+                    <div id="lineChart"></div>
+                </div>
+            </div>
+
+    </section>
+
+</section>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script> <!-- jQuery Library -->
+<script src="js/jquery-ui.min.js"></script> <!-- jQuery UI -->
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Charts -->
+<script src="js/charts/jquery.flot.js"></script> <!-- Flot Main -->
+<script src="js/charts/jquery.flot.time.js"></script> <!-- Flot sub -->
+<script src="js/charts/jquery.flot.animator.min.js"></script> <!-- Flot sub -->
+<script src="js/charts/jquery.flot.resize.min.js"></script> <!-- Flot sub - for repaint when resizing the screen -->
+<!--cookie-->
+<script src="js/jquery.cookie.js"></script>
+<script src="js/sparkline.min.js"></script> <!-- Sparkline - Tiny charts -->
+<script src="js/easypiechart.js"></script> <!-- EasyPieChart - Animated Pie Charts -->
+<script src="js/charts.js"></script> <!-- All the above chart related functions -->
+<!-- UX -->
+<script src="js/scroll.min.js"></script> <!-- Custom Scrollbar -->
+<!-- Other -->
+<script src="js/calendar.min.js"></script> <!-- Calendar -->
+<script src="js/feeds.min.js"></script> <!-- News Feeds -->
+<!-- All JS functions -->
+<script src="js/functions.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="js/bootstrap-table.js"></script>
+<!--<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>-->
+<!-- Latest compiled and minified Locales -->
+<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+<!--video.js-->
+<script src="js/video.min.js"></script>
+<!--jsmpeg-->
+<script src="jsmpeg/jsmpeg.min.js"></script>
+<!--<script src="js/media-player.min.js"></script> &lt;!&ndash; Video Player &ndash;&gt;-->
+<!--hightcharts-->
+<script src="https://img.highcharts.com.cn/highstock/highstock.js"> </script>
+<script src="https://img.highcharts.com.cn/highcharts/highcharts-more.js"></script>
+<script src="https://img.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+<script src="https://img.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+
+<script>
+
+    $(function(){
+
+        var x,y;//折线点
+        var video_url;
+
+
+        //保安
+        var security_table = function(){
+            window.operateEvents = {
+                'click a[class ^= "security-state"]': function (e, value, row, index) {
+                    Ewin.confirm({ message: "确定安排？" }).on(function (e) {
+                        if (!e) {
+                            return;
+                        }
+                        $(".security-state-"+index+"").addClass("label-danger").removeClass("label-success").html("繁忙中");
+                        Ewin.alert("操作成功！");
+                    });
+                }
+            };
+            function operateFormatter(value, row, index) {
+                if(index === 2){
+                    return  [
+                        '<a  class = "security-state-'+index+'  rest label-danger"  href="javascript:void(0)">繁忙中</a>'
+                    ]
+                }
+                return [
+                    '<a  class = "security-state-'+index+'   label-success "  href="javascript:void(0)">可安排</a>',
+                ].join('');
+            }
+            $('#arranged').bootstrapTable({
+                url: "http://39.108.77.106/ai_monitor/usr/ac_worker_info",//数据源
+                dataField: "rows",//服务端返回数据键值 就是说记录放的键值是rows，分页时使用总记录数的键值为total
+                height:"187",
+                border:0,
+                search: false,//是否搜索
+                pagination: false,//是否分页
+                pageSize: 5,//单页记录数
+                striped: true,//显示隔行间色
+                pageList: [ 10, 20, 50],//分页步进值
+                sidePagination: "client",//服务端分页
+                contentType: "application/x-www-form-urlencoded",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
+                dataType: "json",//期待返回数据类型
+                method: "get",//请求方式
+                queryParamsType: "limit",//查询参数组织方式
+                responseHandler:function(res){      //初始化数据格式
+                    res = res.worker_data;
+                    return res
+                },
+                searchOnEnterKey: false,//回车搜索
+                showRefresh: false,//刷新按钮
+                showColumns: false,//列选择按钮
+                buttonsAlign: "right",//按钮对齐方式
+                // toolbar: "",//指定工具栏
+                toolbarAlign: "",//工具栏对齐方式
+                columns: [
+                    {
+                        title: "姓名",
+                        field: "w_name",
+                        // titleTooltip: "this is name"
+                        align: "center",//水平
+                    },
+                    {
+                        field: "w_contact",
+                        title: "联系方式",
+                        align: "center",//水平
+                    },
+                    {
+                        field: "w_place",
+                        title: "负责区域",
+                        align: "center",//水平
+                    },
+                    {
+                        field: "状态",
+                        title: "状态",
+                        align: "center",//水平
+                        events:operateEvents ,
+                        formatter: operateFormatter
+                    }
+                ],
+                locale: "zh-CN", //中文支持
+                detailView: false, //是否显示详情折叠
+            });
+        };
+        security_table();
+
+        // 折线图  websocket
+        var lineChart = function(){
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            var today = year+"-"+month+"-"+strDate;
+            //折线图
+            function activeLastPointToolip(chart) {
+                var points = chart.series[0].points;
+                chart.tooltip.refresh(points[points.length -1]);
+            }
+            Highcharts.chart('lineChart', {
+                colors: ['#7779a9'],
+                chart: {
+                    type: 'spline',
+                    animation: Highcharts.svg, // don't animate in old IE
+                    marginRight: 10,
+                    height:335,
+                    backgroundColor: "",
+                    events: {
+                        load: function () {
+                            // set up the updating of the chart each second
+                            var series = this.series[0];
+                            // console.log(series);
+
+                            var websocket = null;
+                            //判断当前浏览器是否支持WebSocket
+                            if ('WebSocket' in window) {
+                                websocket = new WebSocket("ws://39.108.77.106/ai_monitor/wb/update");
+                            } else {
+                                alert('当前浏览器 Not support websocket')
+                            }
+                            //连接发生错误的回调方法
+                            websocket.onerror = function () {
+
+                            };
+                            //连接成功建立的回调方法
+                            websocket.onopen = function () {
+                                //发送消息到其他网页
+                                var jsonStr = JSON.stringify({id: 'client', place_id: '钟海楼'});
+                                websocket.send(jsonStr);
+                            };
+                            //接收到消息的回调方法
+                            websocket.onmessage = function (event) {
+                                setMessageInnerHTML(JSON.parse(event.data));
+                            };
+                            //连接关闭的回调方法
+                            websocket.onclose = function () {
+                                Ewin.confirm({ message: "本次告警结束！",btnok:"主页" }).on(function (e) {
+                                    if (!e) {
+                                        return;
+                                    }
+                                    window.location.href = "index.html";
+                                });
+                            };
+                            //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+                            window.onbeforeunload = function () {
+                                closeWebSocket();
+                            };
+                            //将消息显示在网页上
+                            function setMessageInnerHTML(innerHTML) {
+                                x = (new Date()).getTime(), // current time
+                                    y = innerHTML.crt_point[0][1];
+                                $("#num").html(y);
+                                // console.log(innerHTML)
+                                $("#max_num").html(innerHTML.max_number);
+                                $("#set_num").html(innerHTML.set_number);
+                                if ($("#alert_place") !== $.cookie("alert_place")){
+                                    $("#alert_place").html($.cookie("alert_place"));
+                                }
+                                // $("#alert_place").html(innerHTML.);
+                                if(video_url !== $.cookie("video_source")){
+                                    video_url = $.cookie("video_source");
+                                    video(video_url);
+                                }
+                                series.addPoint([x, y], true, true);
+                            }
+                            //关闭WebSocket连接
+                            function closeWebSocket() {
+                                websocket.close();
+                            }
+                        }
+                    }
+                },
+                time: {
+                    useUTC: false
+                },
+                title: {
+                    text: '人流变化趋势图',
+                    style:{
+                        color:'#FFD600',
+                        fontSize:"15px",
+                        fontFamily: 'open-sans-light'
+                    }
+                },
+                //副标题
+                subtitle:{
+
+                    text:""+today+"",
+                    style:{
+                        color:'white',
+                        fontFamily: 'open-sans-light'
+                    }
+                },
+                xAxis: {
+                    title: {
+                        text: '时间',
+                        style:{
+                            color:"#ddb500",
+                            fontFamily: 'open-sans-light'
+                        },
+                        rotation: 0,
+                        // offset:0,       //偏移
+                        // x:210,
+                        // y:0,
+                    },
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    lineColor:"rbga(0,0,0,.3)",     //轴线颜色
+                    labels: {                       //轴标签
+                        style: {
+                            color: "white",
+                            fontFamily: 'open-sans-light'
+                        }
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: '人数',
+                        style:{
+                            color:"#ddb500",
+                            fontFamily: 'open-sans-light'
+                        },
+
+                    },
+                    labels: {//轴标签
+                        style: {
+                            color: "white",
+                            fontFamily: 'open-sans-light'
+
+                        }
+                    },
+                    gridLineColor: 'rgba(0,0,0,1)',     //网格线颜色
+                    // gridLineWidth: 4,                //网格线宽度
+                    //x轴宽度
+                    plotLines: [{
+                        value: 0,
+                        width: 2,
+                        color: '#9a9a9a'
+                    }],
+
+                },
+                credits:{
+                    enabled:false
+                },
+                //数据提示框
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br/>',
+                    pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.0f}'
+                },
+                legend: {//图例
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                series: [{
+                    name: '人流量',
+                    data: (function () {
+                        // generate an array of random data
+                        var data = []
+                            ,
+                            time = (new Date()).getTime(),
+                            i;
+                        for (i = -19; i <= 0; i += 1) {
+                            data.push({
+                                x: time + i * 1000,
+                                y: Math.round(Math.random() * 100)
+                            });
+                        }
+                        return data;
+                    }())
+                }]
+            });
+        };
+
+        // var lineChart = function(){
+        //     var x,y;//折线点
+        //     Highcharts.setOptions({
+        //         global : {
+        //             useUTC : false
+        //         }
+        //     });
+//// Create the chart
+//             Highcharts.stockChart('lineChart', {
+//                 colors:['rgb(255,117,153)'],
+//                 chart : {
+//                     marginRight: 10,
+//                     height:335,
+//                     backgroundColor: "",
+//                     events: {
+//                         load: function () {
+//                             // set up the updating of the chart each second
+//                             var series = this.series[0];
+//                             // console.log(series);
+//                             var websocket = null;
+//                             //判断当前浏览器是否支持WebSocket
+//                             if ('WebSocket' in window) {
+//                                 websocket = new WebSocket("ws://39.108.77.106/ai_monitor/wb/update");
+//                             } else {
+//                                 alert('当前浏览器 Not support websocket')
+//                             }
+//                             //连接发生错误的回调方法
+//                             websocket.onerror = function () {
+//                             };
+//                             //连接成功建立的回调方法
+//                             websocket.onopen = function () {
+//                                 //发送消息到其他网页
+//                                 var jsonStr = JSON.stringify({id: 'client', place_id: '钟海楼'});
+//                                 websocket.send(jsonStr);
+//                             };
+//                             //接收到消息的回调方法
+//                             websocket.onmessage = function (event) {
+//                                 setMessageInnerHTML(JSON.parse(event.data));
+//                             };
+//                             //连接关闭的回调方法
+//                             websocket.onclose = function () {
+//                                 // Ewin.confirm({ message: "预警结束，点击前往跳转！",btnok:"前往" }).on(function (e) {
+//                                 //     if (!e) {
+//                                 //         return;
+//                                 //     }
+//                                 //     window.location.href = "index.html";
+//                                 // });
+//                             };
+//                             //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+//                             window.onbeforeunload = function () {
+//                                 closeWebSocket();
+//                             };
+//                             //将消息显示在网页上
+//                             function setMessageInnerHTML(innerHTML) {
+//                                 x = (new Date()).getTime(), // current time
+//                                     y = innerHTML.crt_point[0][1];
+//                                 $("#num").html(y);
+//                                 // console.log(innerHTML)
+//                                 $("#max_num").html(innerHTML.max_number);
+//                                 $("#set_num").html(innerHTML.set_number);
+//                                 if ($("#alert_place") !== $.cookie("alert_place")){
+//                                     $("#alert_place").html($.cookie("alert_place"));
+//                                 }
+//                                 // $("#alert_place").html(innerHTML.);
+//                                 if(video_url !== $.cookie("video_source")){
+//                                     video_url = $.cookie("video_source");
+//                                     video(video_url);
+//                                 }
+//                                 series.addPoint([x, y], true, true);
+//                             }
+//                             //关闭WebSocket连接
+//                             function closeWebSocket() {
+//                                 websocket.close();
+//                             }
+//                         }
+//                     }
+//                 },
+//                 rangeSelector: {
+//                     // buttons: [{
+//                     //     count: 1,
+//                     //     type: 'minute',
+//                     //     text: '1M',
+//                     //     style: {
+//                     //         color: "red",
+//                     //     }
+//                     // }, {
+//                     //     count: 5,
+//                     //     type: 'minute',
+//                     //     text: '5M'
+//                     // }, {
+//                     //     type: 'all',
+//                     //     text: 'All'
+//                     // }],
+//                     // inputEnabled: false,
+//                     // selected: 0,
+//                     enabled: false
+//                 },
+//                 navigator: {//下边导航栏
+//                     xAxis: {
+//                         labels: {
+//                             style: {
+//                                 color: 'white'
+//                             },
+//                         }
+//                     },
+//                     maskFill: 'rgba(180, 198, 220, 0.3)',//蒙版
+//                 },
+//                 title: {
+//                     text: '人流变化趋势图',
+//                     style:{
+//                         color:'#FFD600',
+//                         fontSize:"15px",
+//                         fontFamily: 'open-sans-light'
+//                     }
+//                 },
+//                 //副标题
+//                 subtitle:{
+//                     text:"2019.3.21",
+//                     style:{
+//                         color:'white',
+//                         fontFamily: 'open-sans-light'
+//                     }
+//                 },
+//                 tooltip: {
+//                     split: false
+//                 },
+//                 credits:{
+//                     enabled:false
+//                 },
+//                 exporting: {
+//                     enabled: false
+//                 },
+//                 xAxis: {
+//                     lineColor:"rbga(0,0,0,.3)",     //轴线颜色
+//                     labels: {                       //轴标签
+//                         style: {
+//                             color: "white",
+//                             fontFamily: 'open-sans-light'
+//                         }
+//                     }
+//                 },
+//                 yAxis: {
+//                     title: {
+//                         text: '人数',
+//                         style:{
+//                             color:"#ddb500",
+//                             fontFamily: 'open-sans-light'
+//                         },
+//                     },
+//                     labels: {//轴标签
+//                         style: {
+//                             color: "white",
+//                             fontFamily: 'open-sans-light'
+//                         }
+//                     },
+//                     gridLineColor: 'rgba(0,0,0,1)',     //网格线颜色
+//                     // gridLineWidth: 4,                //网格线宽度
+//                     //x轴宽度
+//                     plotLines: [{
+//                         value: 0,
+//                         width: 2,
+//                         color: '#9a9a9a'
+//                     }],
+//                 },
+//                 series : [{
+//                     name : '人流数',
+//                     // data : (function () {
+//                     // 	// generate an array of random data
+//                     // 	var data = [], time = (new Date()).getTime(), i;
+//                     // 	for (i = -999; i <= 0; i += 1) {
+//                     // 		data.push([
+//                     // 			time + i * 1000,
+//                     // 			Math.round(Math.random() * 100)
+//                     // 		]);
+//                     // 	}
+//                     // 	return data;
+//                     // }())
+//                     data: (function () {
+//                         // generate an array of random data
+//                         var data = [],
+//                             time = (new Date()).getTime(),
+//                             i;
+//                         for (i = -19; i <= 0; i += 1) {
+//                             data.push({
+//                                 x: time + i * 1000,
+//                                 y: Math.round(Math.random() * 500)
+//                             });
+//                         }
+//                         return data;
+//                     }())
+//                 }]
+//             });
+//         };
+        lineChart();
+
+
+        //实时
+        var video = function(url){
+            // Setup the jsmpeg player
+             url  = "ws://39.108.77.106:"+url+"/";
+            var player = new JSMpeg.Player(url, {
+                canvas: document.getElementById('video'),
+                // decodeFirstFrame: true,
+            });
+            player.play();
+            document.getElementById('video').addEventListener('click', function(){
+                if (player.isPlaying) {
+                    player.pause();
+                }
+                else {
+                    player.play();
+                }
+            })
+        };
+
+        // //获取图片
+        (function(){
+            $.ajax({
+                type:'post',
+                dataType:'json',
+                url:'http://39.108.77.106/ai_monitor/usr/ac_gt_url',
+                data:{'md.dt_id':$.cookie("img_id")},
+                success:function(res){
+                    var pic_url = "http://39.108.77.106/"+res.pic_url+"";
+                    console.log(pic_url);
+                    $("#get_img").attr("src" , pic_url);
+                },
+                error:function(){
+
+                }
+            });
+            console.log()
+            setInterval(function(){
+                $.ajax({
+                    type:'post',
+                    dataType:'json',
+                    url:'http://39.108.77.106/ai_monitor/usr/ac_gt_url',
+                    data:{'md.dt_id':$.cookie("img_id")},
+                    success:function(res){
+                        var pic_url = "http://39.108.77.106/"+res.pic_url+"";
+                        console.log(pic_url);
+                        $("#get_img").attr("src" , pic_url);
+                    },
+                    error:function(){
+
+                    }
+                })
+            },1000);
+        })();
+
+        //手机端改变布局
+        (function(){
+            var zoom_in = 1;//放大
+            var zoom_out = 1;//缩小
+            if($(window).width() < 992){
+                $(".content-center").remove();
+                $("#content").append("      " +
+                    "   <div class=\"col-md-8  content-center\">\n" +
+                    "                <div class=\"row center-middle tile\">\n" +
+                    "                    <canvas id=\"video\" style=\"width: 100%; height:100%\"></canvas>\n" +
+                    "                </div>\n" +
+                    "                <div class=\"row center-bottom \">\n" +
+                    "                    <div id=\"\" class=\"alert-secu-box tile\">\n" +
+                    "                        <table id=\"arranged\" class=\"table table-hover\" ></table>\n" +
+                    "                    </div>\n" +
+                    "                </div>\n" +
+                    "            </div>");
+                //初始化
+                security_table();
+                video_url = $.cookie("video_source");
+                video(video_url);
+            }
+            window.onresize = function(){
+                if($(window).width() < 992){
+                    if(zoom_out === 1){
+                        $(".content-center").remove();
+                        $("#content").append("" +
+                            "       <div class=\"col-md-8  content-center\">\n" +
+                            "                <div class=\"row center-middle  tile\">\n" +
+                            "                    <canvas id=\"video\" style=\"width: 100%; height:100%\"></canvas>\n" +
+                            "                </div>\n" +
+                            "                <div class=\"row center-bottom \">\n" +
+                            "                    <div id=\"\" class=\"alert-secu-box \">\n" +
+                            "                        <table id=\"arranged\" class=\"table table-hover\" ></table>\n" +
+                            "                    </div>\n" +
+                            "                </div>\n" +
+                            "            </div>");
+                        //初始化
+                        security_table();
+                        video_url = $.cookie("video_source");
+                        video(video_url);
+                        zoom_out = 0;
+                        zoom_in = 1;
+                    }
+                }else{
+                    if(zoom_in === 1){
+                        $(".content-right").remove();
+                        $("#content").append("" +
+                            "      <div class=\"col-md-4  content-right\">\n" +
+                            "                <div class=\"row right-top tile\">\n" +
+                            "                    <div class=\"row\">\n" +
+                            "                        <div class=\"col-xs-3 col-sm-3 col-md-3 text-center \">\n" +
+                            "                            <h4 class=\"page-title \">设备</h4>\n" +
+                            "                            <div id='alert_place' class=\"showNum\">\n" +
+                            "                                1120\n" +
+                            "                            </div>\n" +
+                            "                        </div>\n" +
+                            "                        <div class=\"col-xs-3 col-sm-3 col-md-3  text-center \">\n" +
+                            "                            <h4 class=\"page-title \">人流数</h4>\n" +
+                            "                            <div id=\"num\" class=\"showNum\">\n" +
+                            "                                1,234\n" +
+                            "                            </div>\n" +
+                            "                        </div>\n" +
+                            "                        <div class=\"col-xs-3 col-sm-3 col-md-3  text-center\">\n" +
+                            "                            <h4 class=\"page-title \">最高峰</h4>\n" +
+                            "                            <div id='max_num' class=\"showNum\">\n" +
+                            "                                1,521\n" +
+                            "                            </div>\n" +
+                            "                        </div>\n" +
+                            "                        <div class=\"col-xs-3 col-sm-3 col-md-3 text-center\">\n" +
+                            "                            <h4 class=\"page-title \">阈值</h4>\n" +
+                            "                            <div id='set_num' class=\"showNum\">\n" +
+                            "                                287\n" +
+                            "                            </div>\n" +
+                            "                        </div>\n" +
+                            "                    </div>\n" +
+                            "\n" +
+                            "                </div>\n" +
+                            "                <div class=\"row right-middle tile\">\n" +
+                            "                    <img src=\"img/skin-night.jpg\" alt=\"\">\n" +
+                            "                </div>\n" +
+                            "                <div class=\"row right-bottom tile\">\n" +
+                            "                    <div id=\"lineChart\"></div>\n" +
+                            "                </div>\n" +
+                            "            </div>");
+                        lineChart();
+                        zoom_in = 0;
+                        zoom_out = 1;
+                    }
+                }
+            };
+        })();
+    })
+
+</script>
+</body>
+</html>
