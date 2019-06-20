@@ -61,7 +61,7 @@ Welcome
     //发送消息
     function send() {
         var obj = JSON.parse('{"id": "client", "place_id": "钟海楼" , "msg":{"reset_number":600}}');
-        var jsonStr = JSON.stringify({id: 'client', place_id: '钟海楼' , msg :{"reset_number":10}});
+        var jsonStr = JSON.stringify({id: 'client', place_id: '钟海楼' , msg :{"reset_number":5}});
         var message = document.getElementById('text').value;
         websocket.send(jsonStr);
     }

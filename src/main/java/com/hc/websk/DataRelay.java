@@ -121,6 +121,7 @@ public class DataRelay {
         jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
         JSONObject jso = JSONObject.fromObject(message);
         String id = (String) jso.get("id");            // 连接身份
+//        System.out.println(message);
         if (!StringUtils.isEmpty(id)) {
             switch (id) {
                 case "server":
@@ -131,9 +132,10 @@ public class DataRelay {
                             List<List<Long>> list = new ArrayList<>();
                             List<Long> tmp = new ArrayList<>();
                             JSONObject msg = (JSONObject) jso.get("msg");
-                            System.out.println(msg);
 
                             if (msg != null) {
+                                // 消息解析
+//                                System.out.println(msg);
                                 Long curentNumber = Long.parseLong(msg.get("crt_number").toString());
                                 Integer dtId = Integer.parseInt(msg.get("dt_id").toString());
                                 Long timeMills = Long.parseLong(msg.get("time_mills").toString());
@@ -177,12 +179,8 @@ public class DataRelay {
                                                         toListener.put("has_performed", s.dataRelay.hasEverPerformed);
                                                         for (final DataRelay dr :
                                                                 listeners) {
-                                                            try {
-                                                                if (dr.session.isOpen())
-                                                                    dr.session.getBasicRemote().sendText(toListener.toString());
-                                                            } catch (IOException e) {
-                                                                e.printStackTrace();
-                                                            }
+                                                            if (dr.session.isOpen())
+                                                                dr.session.getAsyncRemote().sendText(toListener.toString());
                                                         }
                                                         s.dataRelay.hasEverPerformed = false;
                                                         try {
@@ -200,13 +198,12 @@ public class DataRelay {
                                 } catch (IOException e) {
                                     System.out.println("消息分发失败");
                                 }
-                                return;
                             } else if (jso.get("info") != null) {
                                 JSONObject info = (JSONObject) jso.get("info");
                                 Integer status = (Integer) info.get("status");
                                 String clientAddress = (String) info.get("from_client");
                                 String listenerAddress = (String) info.get("from_listener");
-                                System.out.println("info ---> :" + info.toString());
+//                                System.out.println("info ---> :" + info.toString());
                                 if (!StringUtils.isEmpty(clientAddress) && !s.clients.isEmpty()) {
                                     if (status.equals(200)) {
                                         info.put("msg", "地点 -" + s.placeId + "- 阈值修改成功");
@@ -226,7 +223,8 @@ public class DataRelay {
                                             }
                                         }
                                     }
-                                } else if (!StringUtils.isEmpty(listenerAddress) && !listeners.isEmpty()) {
+                                }
+                                /*else if (!StringUtils.isEmpty(listenerAddress) && !listeners.isEmpty()) {
                                     for (DataRelay listener :
                                             listeners) {
                                         if (listener.toString().equals(listenerAddress) && listener.session.isOpen()) {
@@ -239,8 +237,9 @@ public class DataRelay {
                                             }
                                         }
                                     }
-                                }
+                                }*/
                             }
+                            return;
                         }
                     }
                     // 如果没从上面结束，则这个server是第一次访问的

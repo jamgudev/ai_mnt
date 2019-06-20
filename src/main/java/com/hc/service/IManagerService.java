@@ -22,4 +22,8 @@ public interface IManagerService {
 	JSONObject doLogin(DoMain dm);
 
 	JSONObject setSingleWorker(DoMain dm);
+
+	JSONObject deleteData(DoMain dm);
+
+	JSONObject deleteCache(String dirName);
 }

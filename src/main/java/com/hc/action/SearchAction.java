@@ -1,8 +1,5 @@
 package com.hc.action;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.hc.bean.DoMain;
 import com.hc.service.IManagerService;
 import com.hc.service.IUserService;
@@ -11,6 +8,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 import net.sf.json.JSONObject;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings({"unused", "WeakerAccess", "JavaDoc"})
 public class SearchAction extends ActionSupport implements ModelDriven<DoMain>{
@@ -46,14 +46,14 @@ public class SearchAction extends ActionSupport implements ModelDriven<DoMain>{
 	 * @throws Exception
 	 */
 	public void search() throws Exception {
-		ms.checkNull();
+//		ms.checkNull();
 		JSONObject jso = us.searchBy(dm);
 		response.getWriter().print(jso);
 	}
 	
 	// 首页图表查询近30天数据
 	public void main_chart() throws Exception {
-		ms.checkNull();
+//		ms.checkNull();
 		JSONObject jso = us.mainSearch();
 		response.getWriter().print(jso);
 	}

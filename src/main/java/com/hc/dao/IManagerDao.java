@@ -3,6 +3,9 @@ package com.hc.dao;
 import com.hc.bean.DoMain;
 import com.hc.domain.Diary;
 import com.hc.domain.Manager;
+import com.hc.domain.MonitorData;
+
+import java.util.List;
 
 @SuppressWarnings("ALL")
 public interface IManagerDao {
@@ -27,4 +30,8 @@ public interface IManagerDao {
 	Integer getMaxId();
 
 	Integer updateDiary(Diary diary);
+
+	int deleteById(Integer id);
+
+	List<MonitorData> getAllDatas();
 }

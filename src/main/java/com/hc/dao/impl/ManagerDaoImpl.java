@@ -11,7 +11,6 @@ import com.hc.domain.Worker;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -19,6 +18,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings({"ConstantConditions", "SqlDialectInspection", "SqlNoDataSourceInspection"})
@@ -160,5 +161,37 @@ public class ManagerDaoImpl extends HibernateDaoSupport implements IManagerDao {
     @Override
     public Integer updateDiary(Diary diary) {
         return (Integer) this.getHibernateTemplate().save(diary);
+    }
+
+    @Override
+    public int deleteById(final Integer id) {
+        return this.getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+            @Override
+            public Integer doInHibernate(Session session) throws HibernateException {
+                String sql = "delete from t_monitor_data where dt_id = " + id;
+                return session.createSQLQuery(sql).executeUpdate();
+            }
+        });
+    }
+
+    @Override
+    public List<MonitorData> getAllDatas() {
+        return this.getHibernateTemplate().execute(new HibernateCallback<List<MonitorData>>() {
+            @SuppressWarnings("unchecked")
+            @Override
+            public List<MonitorData> doInHibernate(Session session) throws HibernateException {
+                String sql = "select dt_id, dt_mnt_pic_url from t_monitor_data";
+                List<Object[]> list = session.createSQLQuery(sql).list();
+                List<MonitorData> mnts = new ArrayList<>();
+                for (Object[] o :
+                        list) {
+                    MonitorData mnt = new MonitorData();
+                    mnt.setDt_id(Integer.valueOf(String.valueOf(o[0])));
+                    mnt.setDt_mnt_pic_url(String.valueOf(o[1]));
+                    mnts.add(mnt);
+                }
+                return mnts;
+            }
+        });
     }
 }

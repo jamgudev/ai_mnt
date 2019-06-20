@@ -212,9 +212,9 @@ public class UserServiceImpl implements IUserService {
             JSONObject jso2 = new JSONObject();
             jso2.put("place_name", md.getPlace().getP_name());
             jso2.put("time", md.getDt_from_time() + " - " + md.getDt_to_time());
-            jso2.put("duration", getDuration(md.getDt_from_time(), md.getDt_to_time()) + "(秒)");
-            jso2.put("set_num", md.getDt_preset_pn() + "(人)");
-            jso2.put("max_num", md.getDt_ppnb() + "(人)");
+            jso2.put("duration", getDuration(md.getDt_from_time(), md.getDt_to_time()) + " (秒)");
+            jso2.put("set_num", md.getDt_preset_pn() + " (人)");
+            jso2.put("max_num", md.getDt_ppnb() + " (人)");
             jso2.put("alert_level", md.getDt_alert_level());
             jso2.put("workers", getWokerNameStr(md.getWorkers()));
             jso2.put("contacts", getWokerPhoneStr(md.getWorkers()));
@@ -226,13 +226,14 @@ public class UserServiceImpl implements IUserService {
     }
 
     private long getDuration(String from, String to) {
-        SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date fromTime = df.parse(from);
             Date toTime = df.parse(to);
-            long between = (fromTime.getTime() - toTime.getTime()) / 1000;
+            long between = (toTime.getTime() - fromTime.getTime()) / 1000;
 //            return between % 3600 / 60;
-            return between % 60 / 60;
+//            return between % 60 / 60;
+            return between;
         } catch (ParseException e) {
             e.printStackTrace();
         }

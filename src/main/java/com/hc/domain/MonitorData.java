@@ -135,12 +135,24 @@ public class MonitorData implements Serializable {
     }
 
     @Override
-	public String toString() {
-		return "MonitorData [dt_id=" + dt_id + ", dt_ppnb=" + dt_ppnb + ", dt_preset_pn=" + dt_preset_pn
-				+ ", dt_changing_pn=" + dt_changing_pn + ", dt_from_time=" + dt_from_time + ", dt_to_time=" + dt_to_time
-				+ ", dt_vd_url=" + dt_vd_url + ", dt_alert_level=" + dt_alert_level + ", dt_mnt_diary_url="
-				+ dt_mnt_diary_url + ", place=" + place + ", workers=" + workers + "]";
-	}
+    public String toString() {
+        return "MonitorData{" +
+                "dt_id=" + dt_id +
+                ", dt_ppnb=" + dt_ppnb +
+                ", dt_preset_pn=" + dt_preset_pn +
+                ", dt_changing_pn='" + dt_changing_pn + '\'' +
+                ", dt_from_time='" + dt_from_time + '\'' +
+                ", dt_to_time='" + dt_to_time + '\'' +
+                ", dt_vd_url='" + dt_vd_url + '\'' +
+                ", dt_alert_level='" + dt_alert_level + '\'' +
+                ", dt_mnt_diary_url='" + dt_mnt_diary_url + '\'' +
+                ", dt_mnt_pic_url='" + dt_mnt_pic_url + '\'' +
+                ", place=" + place +
+                ", workers=" + workers +
+                ", commands=" + commands +
+                ", diaries=" + diaries +
+                '}';
+    }
 
     public String getDt_mnt_pic_url() {
         return dt_mnt_pic_url;

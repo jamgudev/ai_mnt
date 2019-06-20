@@ -62,6 +62,11 @@ public class UpdateAction extends ActionSupport implements ModelDriven<DoMain> {
 		response.getWriter().print(jso);
 	}
 
+	public void dlt_dt() throws Exception {
+		JSONObject jso = ms.deleteData(dm);
+		response.getWriter().print(jso);
+	}
+
 	// 上传图片
 	public void ud_pic() throws Exception {
 		JSONObject jso = ms.updatePicForSec(dm, request);
@@ -82,6 +87,12 @@ public class UpdateAction extends ActionSupport implements ModelDriven<DoMain> {
 	// 为告警地点设置工作人员(单个)
 	public void st_sglewk() throws Exception {
 		JSONObject jso = ms.setSingleWorker(dm);
+		response.getWriter().print(jso);
+	}
+
+	// 清理服务器缓存, 删除多余的图片
+	public void dlt_cache() throws Exception{
+		JSONObject jso = ms.deleteCache("/pics");
 		response.getWriter().print(jso);
 	}
 

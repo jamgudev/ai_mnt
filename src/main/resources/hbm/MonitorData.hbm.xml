@@ -20,7 +20,7 @@
             <one-to-many class="com.hc.domain.ShellData"/>
         </set>
 
-        <set name="diaries" inverse="true">
+        <set name="diaries" inverse="true" >
             <key column="d_dt_id" />
             <one-to-many class="com.hc.domain.Diary" />
         </set>

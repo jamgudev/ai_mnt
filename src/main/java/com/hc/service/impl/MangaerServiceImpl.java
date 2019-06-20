@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -62,7 +63,8 @@ public class MangaerServiceImpl implements IManagerService {
             File[] files = wrapper.getFiles("mp4");
             if (files != null) {
                 for (File mp4 : files) {
-                    filePath = dealWithFilePath(mp4, PATH_REAL + "/ai_monitor_files/videos", ".mp4");
+                    filePath = dealWithFilePath(mp4, PATH_REAL + "/ai_monitor_files/temp/"
+                                    + md.getDt_id() + "/videos",".mp4");
                 }
             }
         } catch (Exception e) {
@@ -79,9 +81,9 @@ public class MangaerServiceImpl implements IManagerService {
         else if (level > 2.0f) md.setDt_alert_level("二级");
         else md.setDt_alert_level("一级");
 
-        md.setDt_mnt_pic_url(this.md.getOldPicUrl(md.getDt_id()));
-        // 删除多余的其他图片
-        deleteDir(new File(PATH_REAL + "/ai_monitor_files/temp/" + md.getDt_id()), md.getDt_mnt_pic_url());
+//        md.setDt_mnt_pic_url(this.md.getOldPicUrl(md.getDt_id()));
+//        // 删除多余的其他图片
+//        deleteDir(new File(PATH_REAL + "/ai_monitor_files/temp/" + md.getDt_id()), md.getDt_mnt_pic_url());
         this.md.uploadMonitorData(dm);
         jso.put("status", 200);
         jso.put("msg", "数据上传成功!");
@@ -130,8 +132,10 @@ public class MangaerServiceImpl implements IManagerService {
             return jso;
         }
         Integer dtId = dm.getMd().getDt_id();
-        String fileDir = PATH_REAL + "/ai_monitor_files/temp/" + dtId;
+        String fileDir = PATH_REAL + "/ai_monitor_files/temp/" + dtId + "/pics";
+        // 嘿嘿------------------------------------------------------------
         System.out.println("dtID -------------------> " + dtId);
+        // 嘿嘿------------------------------------------------------------
         String timeSp = String.valueOf(System.currentTimeMillis());
         timeSp = timeSp.substring(timeSp.length() - 4);
         String fileName = dtId + "_" + timeSp + "_mnt.png";
@@ -160,20 +164,19 @@ public class MangaerServiceImpl implements IManagerService {
         return jso;
     }
 
-    private static boolean deleteDir(File dir, String picUrl) {
+    private static void deleteDir(File dir, String picUrl) {
         if (dir.isDirectory()) {
             String[] children = dir.list();
             //递归删除目录中的子目录下(留一张)
             for (int i = 0; i < children.length; i++) {
-                if (StringUtils.isEmpty(picUrl) && children[i].equals(picUrl)) continue;
-                boolean success = deleteDir(new File(dir, children[i]), null);
-                if (!success) {
-                    return false;
+                if ((!StringUtils.isEmpty(picUrl) && !picUrl.equals("null") ) && picUrl.endsWith(children[i])) {
+                    continue;
                 }
+                deleteDir(new File(dir, children[i]), picUrl);
             }
         }
-        // 目录此时为空，可以删除
-        return dir.delete();
+        // 目录此时为空，可以删除，保留了一张，应该为false
+        dir.delete();
     }
 
     /*private void deletePic(String url) {
@@ -278,6 +281,42 @@ public class MangaerServiceImpl implements IManagerService {
             jso.put("status", 400);
             jso.put("msg", "已设置过该工作人员！");
         }
+        return jso;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
+    public JSONObject deleteData(DoMain dm) {
+        Integer id = dm.getMd().getDt_id();
+        int result = md.deleteById(id);
+        JSONObject jso = new JSONObject();
+        if (result > 0) {
+            jso.put("status", 200);
+            jso.put("msg", "回退成功！");
+
+            // 删除与数据相关的文件
+            deleteDir(new File(PATH_REAL + "/ai_monitor_files/temp/" + id), null);
+        } else {
+            jso.put("status", 400);
+            jso.put("msg", "回退失败！");
+        }
+        return jso;
+    }
+
+    @Override
+    public JSONObject deleteCache(String dirName) {
+        // 获取所有数据
+        List<MonitorData> mnts = md.getAllDatas();
+
+        JSONObject jso = new JSONObject();
+        for (MonitorData mnt :
+                mnts) {
+            String picUrl = mnt.getDt_mnt_pic_url();
+            // 根据地址删除文件, false 表清除成功
+            deleteDir(new File(PATH_REAL + "/ai_monitor_files/temp/" + mnt.getDt_id() + dirName), picUrl);
+        }
+        jso.put("status", 200);
+        jso.put("msg", "清除缓存完成！");
         return jso;
     }
 
