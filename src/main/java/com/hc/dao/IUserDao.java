@@ -11,7 +11,7 @@ public interface IUserDao {
 	
 	List<MonitorData> searchByInfo(Object placeInfo, String tFrom, String tTo, String timeDuring, String alertLevel);
 
-	List<Place> searchPlace();
+	List<Place> searchPlace(Object o);
 
 	List<UtilBean> searchCountByEquipment(String string);
 

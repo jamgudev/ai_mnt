@@ -56,10 +56,17 @@ public class ManagerDaoImpl extends HibernateDaoSupport implements IManagerDao {
         return this.getHibernateTemplate().execute(new HibernateCallback<Integer>() {
             @Override
             public Integer doInHibernate(Session session) throws HibernateException {
-                String hql = String.format("update MonitorData m set m.dt_mnt_pic_url = '%s' where m.dt_id = %d", path, dtId);
+                String q = "from MonitorData where dt_id = " + dtId;
+//                String hql = String.format("update MonitorData m set m.dt_mnt_pic_url = '%s' where m.dt_id = %d", path, dtId);
 //                String sql = String.format("update t_monitor_data set dt_mnt_pic_url = '%s' where dt_id = %d", path, dtId);
 //                return session.createSQLQuery(sql).executeUpdate();
-                return session.createQuery(hql).executeUpdate();
+                MonitorData md = (MonitorData) session.createQuery(q).uniqueResult();
+                if (md != null) {
+                    md.setDt_mnt_pic_url(path);
+                    return 1;
+                }
+                return 0;
+
             }
         });
     }

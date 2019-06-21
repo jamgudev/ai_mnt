@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.DomainCombiner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -77,8 +78,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public JSONObject searchPlace() {
-        List<Place> ps = ud.searchPlace();
+    public JSONObject searchPlace(DoMain dm) {
+        Object o = getInfo(dm);
+        List<Place> ps = ud.searchPlace(o);
         JSONObject jso = new JSONObject();
         JSONArray jsa = new JSONArray();
         for (Place p : ps) {
@@ -100,6 +102,19 @@ public class UserServiceImpl implements IUserService {
         jso.put("status", 200);
         jso.put("data", jsa);
         return jso;
+    }
+
+    private Object getInfo(DoMain dm) {
+        Object o;
+        if (dm.getP() == null) o = "";
+        else {
+            try {
+                o = Integer.parseInt(dm.getP().getP_name());
+            } catch (Exception e) {
+                o = dm.getP().getP_name();
+            }
+        }
+        return o;
     }
 
     @Override
@@ -127,15 +142,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public JSONObject searchWorkers(DoMain dm) {
-        Object o;
-        if (dm.getP() == null) o = "";
-        else {
-            try {
-                o = Integer.parseInt(dm.getP().getP_name());
-            } catch (Exception e) {
-                o = dm.getP().getP_name();
-            }
-        }
+        Object o = getInfo(dm);
         List<Worker> workers = ud.searchWorkers(o);
         JSONObject jso = new JSONObject();
         if (workers.size() == 0) {

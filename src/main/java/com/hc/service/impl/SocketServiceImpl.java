@@ -77,9 +77,9 @@ class SocketServiceImpl implements ISocketService {
     public JSONObject terminateRelay(DoMain dm) {
         String id = dm.getU().getCmd_id();
         ShellData cmd = sd.queryByCmdId(id);
+        JSONObject jso = new JSONObject();
         String pid = ShellUtil.getPID(cmd.getSd_cmd());
         int result = ShellUtil.closeLinuxProcess(pid);
-        JSONObject jso = new JSONObject();
         if (result != 0) {
             jso.put("status", 400);
             jso.put("msg", "关闭中继器异常！");

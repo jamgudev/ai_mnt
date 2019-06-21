@@ -293,9 +293,8 @@ public class MangaerServiceImpl implements IManagerService {
         if (result > 0) {
             jso.put("status", 200);
             jso.put("msg", "回退成功！");
-
             // 删除与数据相关的文件
-            deleteDir(new File(PATH_REAL + "/ai_monitor_files/temp/" + id), null);
+//            deleteDir(new File(PATH_REAL + "/ai_monitor_files/temp/" + id), null);
         } else {
             jso.put("status", 400);
             jso.put("msg", "回退失败！");
@@ -312,13 +311,16 @@ public class MangaerServiceImpl implements IManagerService {
         for (MonitorData mnt :
                 mnts) {
             String picUrl = mnt.getDt_mnt_pic_url();
-            // 根据地址删除文件, false 表清除成功
+            // 删除数据多余的文件
             deleteDir(new File(PATH_REAL + "/ai_monitor_files/temp/" + mnt.getDt_id() + dirName), picUrl);
         }
         jso.put("status", 200);
         jso.put("msg", "清除缓存完成！");
         return jso;
     }
+
+    // 删除垃圾文件(深度清理)
+//    public void deepDelete()
 
     public void setMd(IManagerDao md) {
         this.md = md;

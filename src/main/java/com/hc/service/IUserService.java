@@ -9,7 +9,7 @@ public interface IUserService {
 	// 查询历史记录
 	JSONObject searchBy(DoMain dm);
 
-	JSONObject searchPlace();
+	JSONObject searchPlace(DoMain dm);
 
 	JSONObject mainSearch();
 

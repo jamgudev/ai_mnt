@@ -34,7 +34,17 @@ public class SocketDaoImpl extends HibernateDaoSupport implements ISocketDao {
 
     @Override
     public void updateCmd(final ShellData cmd) {
-        this.getHibernateTemplate().update(cmd);
+        this.getHibernateTemplate().execute(new HibernateCallback<Void>() {
+            @Override
+            public Void doInHibernate(Session session) throws HibernateException {
+                String hql = "from ShellData where sd_id = " + cmd.getSd_id();
+                ShellData shellData = (ShellData) session.createQuery(hql).uniqueResult();
+                if (shellData != null) {
+                    shellData.setSd_sts(cmd.getSd_sts());
+                }
+                return null;
+            }
+        });
     }
 
     @Override

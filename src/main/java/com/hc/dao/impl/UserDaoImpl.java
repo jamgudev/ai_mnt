@@ -6,6 +6,7 @@ import com.hc.domain.MonitorData;
 import com.hc.domain.Place;
 import com.hc.domain.Worker;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -53,8 +54,20 @@ public class UserDaoImpl extends HibernateDaoSupport implements IUserDao {
 	}
 
 	@Override
-	public List<Place> searchPlace() {
-		return this.getHibernateTemplate().findByExample(new Place());
+	public List<Place> searchPlace(final Object o) {
+		return this.getHibernateTemplate().execute(new HibernateCallback<List<Place>>() {
+			@Override
+			public List<Place> doInHibernate(Session session) throws HibernateException {
+				String hql = "from Place ";
+				if (!o.equals("") && !o.equals(0)) {
+					if (o instanceof Integer)
+						hql += "where p_id = " + o;
+					else if (o instanceof String)
+						hql += "where p_name = '" + o + "'";
+				}
+				return (List<Place>) session.createQuery(hql).list();
+			}
+		});
 	}
 
 	@Override
@@ -102,7 +115,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements IUserDao {
 			@Override
 			public List<Worker> doInHibernate(Session session) throws HibernateException {
 				String hql = "from Worker ";
-				if (place != "" && !place.equals(0)) {
+				if (!place.equals("") && !place.equals(0)) {
 					if (place instanceof Integer)
 						hql += "where place.p_id = " + place;
 					else if (place instanceof String) hql += " where place.p_name = '" + place + "'";
@@ -118,7 +131,9 @@ public class UserDaoImpl extends HibernateDaoSupport implements IUserDao {
 			@Override
 			public String doInHibernate(Session session) throws HibernateException {
 				MonitorData m = (MonitorData) session.createQuery("from MonitorData where dt_id = " + id).uniqueResult();
-				return m.getDt_mnt_pic_url();
+				if (m != null)
+					return m.getDt_mnt_pic_url();
+				else return null;
 			}
 		});
 	}

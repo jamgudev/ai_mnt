@@ -46,7 +46,7 @@ public class SearchAction extends ActionSupport implements ModelDriven<DoMain>{
 	 * @throws Exception
 	 */
 	public void search() throws Exception {
-//		ms.checkNull();
+		ms.checkNull();
 		JSONObject jso = us.searchBy(dm);
 		response.getWriter().print(jso);
 	}
@@ -60,7 +60,7 @@ public class SearchAction extends ActionSupport implements ModelDriven<DoMain>{
 	
 	// 地点接口
 	public void plh_place() throws Exception {
-		JSONObject jso = us.searchPlace();
+		JSONObject jso = us.searchPlace(dm);
 		response.getWriter().print(jso);
 	}
 	
