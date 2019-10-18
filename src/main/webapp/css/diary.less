@@ -1,11 +1,7 @@
 html,body{
   overflow-x: hidden;
 }
-@media screen and (max-width: 992px) {
-  html,body{
-    //overflow: auto;
-  }
-}
+
 .bootstrap-select{
   border: none;
   box-shadow: none;
@@ -96,4 +92,16 @@ span[class ^= "view"]{
 }
 .showSearch-box{
   max-height: 200px;
+}
+
+/* --------------------------------------------------------
+    手机窗口查询
+-----------------------------------------------------------*/
+@media (max-width: 768px) {
+  .listview-header{
+    >span{
+      display: block;
+      margin: 5px 0;
+    }
+  }
 }

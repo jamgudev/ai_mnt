@@ -1,36 +1,156 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
     <head>
-        <meta charset="utf-8">
-        <title>智能人流监控系统登陆</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="format-detection" content="telephone=no">
+        <meta charset="UTF-8">
+
+        <meta name="description" content="Violate Responsive Admin Template">
+        <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+
+        <title>智能人流监测系统登陆</title>
+            
         <!-- CSS -->
-        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
-        <link rel="stylesheet" href="login/css/reset.css">
-        <link rel="stylesheet" href="login/css/supersized.css">
-        <link rel="stylesheet" href="login/css/style.css">
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/form.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet">
+        <link href="css/generics.css" rel="stylesheet">
+
+        <style>
+            #login{
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: 0 auto;
+                width:500px;
+            }
+            .middle-box{
+                margin: 150px auto 0 ;
+            }
+
+            @media (max-width: 768px) {
+                .middle-box{
+                    margin-top: 0;
+                }
+            }
+        </style>
     </head>
-    <body>
-        <div class="page-container">
-            <h1>Login</h1>
-            <form action="index.html" method="post">
-                <input type="text" name="username" class="username" placeholder="Username">
-                <input type="password" name="password" class="password" placeholder="Password">
-                <button type="submit">Sign in</button>
-                <div class="error"><span>+</span></div>
-            </form>
-        </div>
-        <!-- Javascript -->
-        <script src="login/js/jquery-1.8.2.min.js"></script>
-        <script src="login/js/supersized.3.2.7.min.js"></script>
-        <script src="login/js/supersized-init.js"></script>
-        <script src="login/js/scripts.js"></script>
+    <body id="skin-blur-ocean">
+        <section id="login">
+
+            <div class="middle-box">
+                <header>
+                    <h1>智能人流监测系统</h1>
+                </header>
+
+                <div class="clearfix"></div>
+
+                <!-- Login -->
+                <form class="box tile animated active" id="box-login">
+                    <h2 class="m-t-0 m-b-15">Login</h2>
+                    <input  type="text" class="login-control m-b-10 username" placeholder="Username ">
+                    <input  type="password" class="login-control password" placeholder="Password">
+                    <div class="checkbox m-b-20"  >
+                        <label>
+                            <input type="checkbox" id="rememberMe">
+                            记住密码
+                        </label>
+                    </div>
+                    <button class="btn btn-sm m-r-5">登录</button>
+                    <!--显示错误-->
+                    <div class="error"><span>+</span></div>
+                    <div class="fault"><span>账号或密码错误！</span></div>
+                </form>
+
+            </div>
+
+        </section>
+        
+        <!-- Javascript Libraries -->
+        <!-- jQuery -->
+        <script src="js/jquery.min.js"></script> <!-- jQuery Library -->
+        
+        <!-- Bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+        
+        <!--  Form Related -->
+        <script src="js/icheck.js"></script> <!-- Custom Checkbox + Radio -->
+        
+        <!-- All JS functions -->
+        <script src="js/functions.js"></script>
+
+        <!-- cookie -->
+        <script src="js/jquery.cookie.js"></script>
+
+
+        <script>
+            jQuery(document).ready(function() {
+
+                if( typeof($.cookie("keepUsername")) !== "undefined"){
+                    $(".username").val($.cookie("keepUsername"));
+                    $(".password").val($.cookie("keepPassword"));
+                    $(".icheckbox_minimal").addClass("checked");
+                }
+
+                $('.middle-box form').submit(function(){
+                    var $target = $(this);
+                    var username = $(this).find('.username').val();
+                    var password = $(this).find('.password').val();
+                    if(username == '') {
+                        $(this).find('.error').fadeOut('fast', function(){
+                            $(this).css('top', '65px');
+                        });
+                        $(this).find('.error').fadeIn('fast', function(){
+                            $(this).parent().find('.username').focus();
+                        });
+                        return false;
+                    }
+                    if(password == '') {
+                        $(this).find('.error').fadeOut('fast', function(){
+                            $(this).css('top', '104px');
+                        });
+                        $(this).find('.error').fadeIn('fast', function(){
+                            $(this).parent().find('.password').focus();
+                        });
+                        return false;
+                    }
+                    $.ajax({
+                        dataType:'json',
+                        url:'http://47.112.132.177/ai_monitor/admin/mc_login',
+                        data:{"m.m_acct":username , "m.m_psw":password},
+                        success:function(res){
+                            $.cookie("adminName" ,res.m_name);
+                            $.cookie("adminId" , res.m_id);
+
+                            if(res.status === 400){
+                                $target.find('.fault').fadeOut('fast', function(){
+
+                                });
+                                $target.find('.fault').fadeIn('fast', function(){
+                                    $target.parent().find('.username').focus();
+                                });
+                            }else if(res.status === 200){
+                                var flag = $("#rememberMe").prop("checked");
+                                if(flag){
+                                    $.cookie("keepUsername",username,{ expires: 15 });
+                                    $.cookie("keepPassword",password,{ expires: 15 })
+                                }
+                                window.location.href = 'index.html';
+                            }
+                        }
+                    });
+                    return false
+                });
+
+                $('.middle-box form .username, .middle-box form .password').keyup(function(){
+                    $(this).parent().find('.error').fadeOut('fast');
+                    $(this).parent().find('.fault').fadeOut('fast');
+                });
+
+            });
+        </script>
     </body>
 </html>
-

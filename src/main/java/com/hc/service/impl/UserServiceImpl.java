@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.DomainCombiner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -165,8 +164,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public JSONObject getUrl(DoMain dm) {
-        Integer id = dm.getMd().getDt_id();
-        if (id == null) return null;
+        MonitorData md = dm.getMd();
+        if (md == null || md.getDt_id() == null)
+            return null;
+        Integer id = md.getDt_id();
         String url = ud.getUrl(id);
         JSONObject jso = new JSONObject();
         if (!StringUtils.isEmpty(url)) {
@@ -230,6 +231,41 @@ public class UserServiceImpl implements IUserService {
         jso.put("status", 200);
         jso.put("data", jsa);
         return jso;
+    }
+
+    @SuppressWarnings("UnusedAssignment")
+    @Override
+    public JSONObject detail(DoMain dm) {
+        MonitorData md = dm.getMd();
+        UtilBean u = dm.getU();
+        Place p = dm.getP();
+        JSONObject jso = new JSONObject();
+        if (md == null || u == null || p == null || StringUtils.isEmpty(p.getP_name())
+                || StringUtils.isEmpty(md.getDt_from_time()) || StringUtils.isEmpty(u.getT_during()))
+            throw new RuntimeException("参数错误");
+
+        String placeName = p.getP_name();
+        Integer thredNum = md.getDt_preset_pn();
+        String level = md.getDt_alert_level();
+        Integer maxNum = md.getDt_ppnb();
+        String date = md.getDt_from_time();
+        String during = u.getT_during();
+        Integer placeId = null;
+        if (placeName != null && !StringUtils.isEmpty(date) && !StringUtils.isEmpty(during)) {
+            placeId = ud.getPlaceId(placeName);
+            String[] times = during.split(" - ");
+            MonitorData mnt = ud.searchDetail(placeId, thredNum, level, maxNum, date + " " + times[0], date + " " + times[1]);
+            if (mnt != null) {
+                jso.put("status", 200);
+                jso.put("dt_vd_url", mnt.getDt_vd_url());
+                jso.put("dt_changing_n_txt", mnt.getDt_changing_pn() == null ? "" : JSONArray.fromObject(mnt.getDt_changing_pn()));
+            } else {
+                jso.put("status", 400);
+                jso.put("msg", "发生未知错误，数据查询失败!");
+            }
+            return jso;
+        }
+        return null;
     }
 
     private long getDuration(String from, String to) {

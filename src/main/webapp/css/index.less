@@ -17,12 +17,19 @@ html,body{
   height: 49px;
   cursor: pointer;
   line-height: 49px;
+  &:hover {
+    -webkit-animation-name: tada;
+    animation-name: tada;
+  }
+  &:active{
+    color: #ffd600;
+  }
 }
-*::-webkit-scrollbar{width:10px;}/*滚动条宽度设置：宽度为0 ，当有滚动条出现的时候则不显示滚动条*/
-*::-webkit-scrollbar-track{background-color: rgba(0, 0, 0, 0.26);}/*滚动条槽背景设置*/
-*::-webkit-scrollbar-thumb{background-color: rgba(0, 0, 0, 0.25); }/*滚动条滑块颜色设置*/
-*::-webkit-scrollbar-thumb:hover {background-color: rgba(0, 0, 0, 0.4);}/*滚动条滑块鼠标移上去颜色设置*/
-*::-webkit-scrollbar-thumb:active {background-color:  rgba(0, 0, 0, 0.4);}/*滚动条鼠标点击颜色设置*/
+//*::-webkit-scrollbar{width:10px;}/*滚动条宽度设置：宽度为0 ，当有滚动条出现的时候则不显示滚动条*/
+//*::-webkit-scrollbar-track{background-color: rgba(0, 0, 0, 0.26);}/*滚动条槽背景设置*/
+//*::-webkit-scrollbar-thumb{background-color: rgba(0, 0, 0, 0.25); }/*滚动条滑块颜色设置*/
+//*::-webkit-scrollbar-thumb:hover {background-color: rgba(0, 0, 0, 0.4);}/*滚动条滑块鼠标移上去颜色设置*/
+//*::-webkit-scrollbar-thumb:active {background-color:  rgba(0, 0, 0, 0.4);}/*滚动条鼠标点击颜色设置*/
 .inToday-box{
   padding-left: 0;
 }
@@ -129,22 +136,22 @@ html,body{
 .year {
   font: bold 20px/30px "Helvetica Neue", Arial, Helvetica, "Nimbus Sans L", sans-serif;
   color:#fff;
-  background-color: rgb(121, 60, 99);
-  background-image:-webkit-gradient(linear, left top, left bottom, from(rgb(121, 60, 99)), to(#91050a));
-  background-image:-webkit-linear-gradient(top, rgb(121, 60, 99),  #91050a);
-  background-image:-moz-linear-gradient(top,  rgb(121, 60, 99),  #91050a);
-  background-image:-o-linear-gradient(top,  rgb(121, 60, 99),  #91050a);
-  background-image:-ms-linear-gradient(top,  rgb(121, 60, 99),  #91050a);
-  background-image:linear-gradient(top,  rgb(121, 60, 99),  #91050a);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#04599a', EndColorStr='#00365a');
-  //background-color: #3f51b5;
-  //background-image:-webkit-gradient(linear, left top, left bottom, from(#3f51b5), to(#2185e2));
-  //background-image:-webkit-linear-gradient(top, #3f51b5,  #2185e2);
-  //background-image:-moz-linear-gradient(top, #3f51b5,  #2185e2);
-  //background-image:-o-linear-gradient(top,  #3f51b5,  #2185e2);
-  //background-image:-ms-linear-gradient(top,  #3f51b5,  #2185e2);
-  //background-image:linear-gradient(top,  #3f51b5,  #2185e2);
-  //filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#04599a', EndColorStr='#2196f3');
+  //background-color: rgb(121, 60, 99);
+  //background-image:-webkit-gradient(linear, left top, left bottom, from(rgb(121, 60, 99)), to(#91050a));
+  //background-image:-webkit-linear-gradient(top, rgb(121, 60, 99),  #91050a);
+  //background-image:-moz-linear-gradient(top,  rgb(121, 60, 99),  #91050a);
+  //background-image:-o-linear-gradient(top,  rgb(121, 60, 99),  #91050a);
+  //background-image:-ms-linear-gradient(top,  rgb(121, 60, 99),  #91050a);
+  //background-image:linear-gradient(top,  rgb(121, 60, 99),  #91050a);
+  //filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#04599a', EndColorStr='#00365a');
+  background-color: rgb(86, 102, 181);//3f51b5  ->  2185e2
+  background-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.9)), to(rgba(0, 0, 0, 0.5)));
+  background-image:-webkit-linear-gradient(top, rgba(0, 0, 0, 0.9),  rgba(0, 0, 0, 0.5));
+  background-image:-moz-linear-gradient(top, rgba(0, 0, 0, 0.9),  rgba(0, 0, 0, 0.5));
+  background-image:-o-linear-gradient(top,  rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5));
+  background-image:-ms-linear-gradient(top,  rgba(0, 0, 0, 0.9),  rgba(0, 0, 0, 0.5));
+  background-image:linear-gradient(top,  rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#04599a', EndColorStr='#2196f3');
   clear:both;
   margin-top: 20px;
 }
@@ -205,14 +212,11 @@ html,body{
       text-align: center;
       padding: 10px;
       color: #FFD600;
-
-      //border-bottom: 1px solid rgba(255,255,255,0.15);
     }
     >div:nth-child(2),div:nth-child(4){
       color: #dedede;
     }
     >div:nth-child(3){
-      //padding: 20px 0;
       font-size: 60px;
       text-align: center;
       font-weight: 600;
@@ -312,7 +316,8 @@ html,body{
 }
 .today-report{
   height: 840px;
-  overflow: auto;
+  position: relative;
+  overflow: hidden;
 }
 .show-report{
   margin: 20px ;
@@ -328,7 +333,6 @@ html,body{
   animation:flipInY  0.8s;
 }
 
-//s手机端
 @media screen and(max-width: 768px ) {
   .day{
     font-size: 80px;
@@ -336,4 +340,32 @@ html,body{
 }
 .input-sm::selection{
   background: rgba(232, 166, 78, 0.5);
+}
+
+.noReport{
+  display: table;
+  height: calc(~"100% - 27px");
+  width: 100%;
+  >p{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-style: italic;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 970px) {
+  .tile-config{
+    display:none;
+  }
+}
+.security-box{
+  max-height: 550px;
+  overflow: hidden;
+}
+
+.box-content{
+  overflow: auto;
+  height: calc(~"100% - 27px");
 }

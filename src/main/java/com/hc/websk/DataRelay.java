@@ -53,7 +53,7 @@ public class DataRelay {
     public void onOpen(Session session) {
         this.session = session;
         addOnlineCount();           //在线数加1
-        System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
+        System.out.println("有新连接加入！当前连接数为" + getOnlineCount());
     }
 
     /**
@@ -63,7 +63,7 @@ public class DataRelay {
     public void onClose() {
         try {
             subOnlineCount();           //在线数减1
-            System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
+            System.out.println("有一连接关闭！当前连接数为" + getOnlineCount());
             if (this.session.isOpen()) {
                 this.session.close();
             }
@@ -84,8 +84,6 @@ public class DataRelay {
                         for (DataRelay dr :
                                 server.clients) {
                             dr.onClose();
-                            subOnlineCount();
-                            System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
                         }
 
                         server.dataRelay = null;
@@ -135,7 +133,7 @@ public class DataRelay {
 
                             if (msg != null) {
                                 // 消息解析
-//                                System.out.println(msg);
+                                System.out.println(msg);
                                 Long curentNumber = Long.parseLong(msg.get("crt_number").toString());
                                 Integer dtId = Integer.parseInt(msg.get("dt_id").toString());
                                 Long timeMills = Long.parseLong(msg.get("time_mills").toString());
@@ -184,7 +182,7 @@ public class DataRelay {
                                                         }
                                                         s.dataRelay.hasEverPerformed = false;
                                                         try {
-                                                            Thread.sleep(8 * 1000);
+                                                            Thread.sleep(3 * 1000);
                                                         } catch (InterruptedException e) {
                                                             e.printStackTrace();
                                                         }
@@ -217,6 +215,7 @@ public class DataRelay {
                                             try {
                                                 info.remove("from_client");
                                                 info.remove("from_listener");
+                                                System.out.println(info);
                                                 client.session.getBasicRemote().sendText(info.toString());
                                             } catch (IOException e) {
                                                 e.printStackTrace();

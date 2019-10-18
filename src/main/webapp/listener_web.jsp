@@ -19,7 +19,7 @@ Welcome
     var websocket = null;
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://39.108.77.106:80/ai_monitor/wb/update");
+        websocket = new WebSocket("ws://47.112.132.177:80/ai_monitor/wb/update");
         // websocket = new WebSocket("ws://localhost/ai_monitor/update");
         // websocket = new WebSocket("ws://localhost/ai_monitor/wb/update");
     } else {

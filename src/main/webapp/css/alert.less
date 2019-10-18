@@ -109,10 +109,7 @@
     border: none;
   }
 }
-.alerm-box{
-  height: 185px;
-  overflow: hidden;
-}
+
 .security {
   padding-left: 50px;
   >span{
@@ -136,11 +133,7 @@ a[class ^= "security-state"],a[class ^= "view"]{
     color: white;
   }
 }
-.alert-box{
-  max-height: 185px;
-  padding-right: 0 ;
-  overflow:hidden;
-}
+
 .state-work{
   background-color: #409d51;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#189d0a), to(#63c463));
@@ -164,10 +157,68 @@ a[class ^= "security-state"],a[class ^= "view"]{
   font-weight: 400 ;
 }
 
+.headspace{
+  display: none;
+}
 
+@media (max-width: 768px) {
+  .headspace{
+    display: block;
+  }
+}
 
+.right-top{
+  .page-title{
+    font-size: 18px;
+  }
+}
 
-
-
-
-
+.set-numBox{
+  position: relative;
+}
+#set_num{
+  border-radius: 3px;
+}
+.myModal-body{
+  .input-error,.input-empty{
+    color: #a94442;
+    margin: 5px 0;
+  }
+}
+.changeLabel /* ,.newNum */{
+  color: #ffd600;
+  border-bottom: dashed 1px #ffd600;
+}
+.changeLabel{
+  position: absolute;
+  top: 22px;
+  left: 86px;
+  cursor: pointer;
+}
+.newNum{
+  position: absolute;
+  bottom: 0px  ;
+  left: 5px;
+  width: 100%;
+  letter-spacing: 2px;
+  padding-left: 50px;
+  //text-align: center;
+  font-size: 12px;
+  //color: #ffd600;
+  border-bottom: none;
+  >span{
+    margin: 0 3px;
+    color: #ffd600;
+  }
+}
+@media (max-width: 768px){
+  .changeLabel{
+    position: absolute;
+    top: 39px;
+    left: 25px;
+  }
+  .newNum{
+    padding-left: 0;
+    text-align: center;
+  }
+}

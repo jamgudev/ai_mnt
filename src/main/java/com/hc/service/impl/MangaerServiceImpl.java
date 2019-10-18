@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hc.bean.DoMain;
+import com.hc.bean.UtilBean;
 import com.hc.dao.IManagerDao;
 import com.hc.domain.Diary;
 import com.hc.domain.Manager;
@@ -37,7 +39,7 @@ public class MangaerServiceImpl implements IManagerService {
     @SuppressWarnings("CatchMayIgnoreException")
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
-    public JSONObject uploadData(DoMain dm, HttpServletRequest request) throws IOException {
+    public JSONObject uploadData(DoMain dm, HttpServletRequest request) {
 //		String typeDir = "";
         // String PATH_REAL = request.getServletContext().getRealPath("files");
         MonitorData md = dm.getMd();
@@ -199,6 +201,10 @@ public class MangaerServiceImpl implements IManagerService {
             // 保存记录
             String curentTime = getCurentTime();
             Diary diary = new Diary();
+            if (dm.getM() == null || dm.getM().getM_id() == null) {
+                jso.put("status", 201);
+                jso.put("msg", "请先登录，才能进行操作");
+            }
             diary.setManager(dm.getM());
             diary.setTime(curentTime);
             diary.setDo_what("将" + placeName + "地点阈值修改为" + placeThreh);
@@ -303,24 +309,64 @@ public class MangaerServiceImpl implements IManagerService {
     }
 
     @Override
-    public JSONObject deleteCache(String dirName) {
+    public JSONObject deleteCache(DoMain dm) {
+        UtilBean u = dm.getU();
         // 获取所有数据
         List<MonitorData> mnts = md.getAllDatas();
-
         JSONObject jso = new JSONObject();
-        for (MonitorData mnt :
-                mnts) {
-            String picUrl = mnt.getDt_mnt_pic_url();
-            // 删除数据多余的文件
-            deleteDir(new File(PATH_REAL + "/ai_monitor_files/temp/" + mnt.getDt_id() + dirName), picUrl);
+        // 普通清理
+        if (u == null || (u.getIs_deep() != null && !u.getIs_deep().equals(1))) {
+            deepDelete(mnts);
+            jso.put("msg", "清除缓存完成！");
+        } else if (1 == u.getIs_deep()) {
+            for (MonitorData mnt :
+                    mnts) {
+                String picUrl = mnt.getDt_mnt_pic_url();
+                // 删除数据多余的文件
+                deleteDir(new File(PATH_REAL + "/ai_monitor_files/temp/" + mnt.getDt_id() + "/pics"), picUrl);
+            }
+            jso.put("msg", "深度清理完成！");
         }
         jso.put("status", 200);
-        jso.put("msg", "清除缓存完成！");
         return jso;
     }
 
     // 删除垃圾文件(深度清理)
-//    public void deepDelete()
+    private void deepDelete(List<MonitorData> mnts) {
+        // 取出数据名字
+        String[] sqlNames = new String[mnts.size()];
+        for (int i = 0; i < mnts.size(); i++) {
+            sqlNames[i] = String.valueOf(mnts.get(i).getDt_id());
+        }
+
+        String cacheDir = PATH_REAL + "/ai_monitor_files/temp/";
+        File directory = new File(cacheDir);
+        String[] cacheNames = directory.list();
+        // 折半查找, 删除多余的文件
+        for (int i = 0; i < cacheNames.length; i++) {
+            if (!isExists(cacheNames[i], sqlNames)) {
+                deleteDir(new File(cacheDir + cacheNames[i]), null);
+            }
+        }
+    }
+
+    private boolean isExists(@NotNull String key, String[] dts) {
+        int low = 0;
+        int high = dts.length - 1;
+        int mid ;
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (high >= dts.length || low >= dts.length || mid >= dts.length) break;
+            if (key.compareTo(dts[mid]) == 0) {
+                return true;
+            } else if (key.compareTo(dts[mid]) > 0) {
+                low = mid + 1;
+            } else if (key.compareTo(dts[mid]) < 0) {
+                high = mid - 1;
+            }
+        }
+        return false;
+    }
 
     public void setMd(IManagerDao md) {
         this.md = md;

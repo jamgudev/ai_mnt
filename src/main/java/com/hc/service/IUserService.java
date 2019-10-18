@@ -20,4 +20,6 @@ public interface IUserService {
 	JSONObject searchMostNumberFor30Days(DoMain dm);
 
 	JSONObject searchForToday();
+
+	JSONObject detail(DoMain dm);
 }

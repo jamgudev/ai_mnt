@@ -92,7 +92,8 @@ public class UpdateAction extends ActionSupport implements ModelDriven<DoMain> {
 
 	// 清理服务器缓存, 删除多余的图片
 	public void dlt_cache() throws Exception{
-		JSONObject jso = ms.deleteCache("/pics");
+		ms.checkNull();
+		JSONObject jso = ms.deleteCache(dm);
 		response.getWriter().print(jso);
 	}
 

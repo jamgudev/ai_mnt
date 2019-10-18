@@ -28,7 +28,7 @@ public class ShellUtil {
         Process process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", cmd});
         if (isWait)
             process.waitFor();
-        System.out.println("相关信息 -----> " + " 开启端口: " + port + (port + 1));
+        System.out.println("相关信息 -----> " + " 开启端口: " + port + " " + (port + 1));
         return cmd;
     }
 
@@ -74,7 +74,8 @@ public class ShellUtil {
                 if (line.contains(command)) {
                     // 读下一行才是
                     String[] strs = reader.readLine().split("\\s+");
-                    System.out.println("相关信息 -----> " + " 关闭端口进程 " + strs[1] + "cmd :" + command);
+//                    System.out.println("相关信息 -----> " + " 关闭端口进程 " + strs[1] + " cmd :" + command);
+                    System.out.println("相关信息 -----> " + " 关闭端口进程 " + strs[1]);
                     return strs[1];
                 }
             }

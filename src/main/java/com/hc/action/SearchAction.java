@@ -46,8 +46,13 @@ public class SearchAction extends ActionSupport implements ModelDriven<DoMain>{
 	 * @throws Exception
 	 */
 	public void search() throws Exception {
-		ms.checkNull();
+//		ms.checkNull();
 		JSONObject jso = us.searchBy(dm);
+		response.getWriter().print(jso);
+	}
+
+	public void detail() throws Exception {
+		JSONObject jso = us.detail(dm);
 		response.getWriter().print(jso);
 	}
 	
@@ -77,7 +82,8 @@ public class SearchAction extends ActionSupport implements ModelDriven<DoMain>{
 	// 轮询图片路径
 	public void gt_url() throws Exception {
 		JSONObject jso = us.getUrl(dm);
-		response.getWriter().print(jso);
+		if (jso != null)
+			response.getWriter().print(jso);
 	}
 
 	// 某地点近30次的人流峰值
@@ -87,6 +93,7 @@ public class SearchAction extends ActionSupport implements ModelDriven<DoMain>{
 	}
 
 	public void dt_today() throws Exception {
+//		ms.checkNull();
 		JSONObject jso = us.searchForToday();
 		response.getWriter().print(jso);
 	}

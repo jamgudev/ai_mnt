@@ -24,4 +24,6 @@ public interface IUserDao {
 	List<MonitorData> getMostNumberByPlaceId(Integer placeId);
 
 	List<MonitorData> searchForToday(String todayTime);
+
+	MonitorData searchDetail(Integer placeId, Integer thredNum, String level, Integer maxNum, String s, String s1);
 }

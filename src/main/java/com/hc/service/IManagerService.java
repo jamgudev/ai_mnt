@@ -25,5 +25,5 @@ public interface IManagerService {
 
 	JSONObject deleteData(DoMain dm);
 
-	JSONObject deleteCache(String dirName);
+	JSONObject deleteCache(DoMain dm);
 }

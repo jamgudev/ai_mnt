@@ -18,7 +18,6 @@
     <link href="css/bootstrap-editable.css" rel="stylesheet"/>
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/calendar.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/icons.css" rel="stylesheet">
     <link href="css/generics.css" rel="stylesheet">
@@ -26,13 +25,16 @@
     <link rel="stylesheet" href="css/video-js.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css" />
     <link rel="stylesheet" href="laydate/theme/default/laydate.css" >
-    <!--<link href="css/media-player.css" rel="stylesheet">-->
 
-    <link rel="stylesheet" href="css/alert.css">
     <link rel="stylesheet" href="css/diary.css">
+    <link rel="stylesheet" href="css/alert.css">
     <link rel="stylesheet" href="css/index.css">
+
+    <link rel="stylesheet" type="text/css" media="print" href="css/print.css" />
 </head>
-<body id="skin-blur-city">
+
+
+<body id="skin-blur-ocean">
 
 <header id="header" class="media">
     <a href="" id="menu-toggle"></a>
@@ -48,17 +50,32 @@
                 :
                 <span id="sec"></span>
             </div>
-            <!--data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"-->
-            <a class="pull-right icon alert-tip animated"  data-container="body" >
+            <a class="pull-right icon alert-tip animated" >
                 <i id="alert_count" class="n-count animated"></i>
                 &#61710;
             </a>
+            <span class="pull-right" id="loginOut">退出</span>
+            <span  class="pull-right"  id="username" >
+                未登录
+                <!--<img id="userimg" src="img/beauty.jpg" alt="">-->
+                <!--<div class="userInfo">-->
+                    <!--<div class="nameinfo">-->
+                        <!--卜建立-->
+                    <!--</div>-->
+                    <!--<div class="infoBottom">-->
+                        <!--<span > [退出] </span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </span>
+
         </div>
     </div>
 </header>
 
 <!--<div class="clearfix"></div>-->
-
+<a href="#header" id="goTop" class="hidden fadeIn">
+    <div class="goTop" ><i class="goTopIcon"></i></div>
+</a>
 <section id="main" class="p-relative" role="main">
 
     <!-- Sidebar -->
@@ -111,13 +128,13 @@
                                         <div class="looking-item  col-md-4 col-sm-4 col-xs-4">
                                             <div class="showToday">正在监控</div>
                                             <div class="showToday">数量</div>
-                                            <div class="showToday">3</div>
+                                            <div class="showToday">1</div>
                                             <div class="showToday">(台)</div>
                                         </div>
                                         <div class="looking-item  col-md-4 col-sm-4 col-xs-4">
-                                            <div class="showToday">发出警报</div>
+                                            <div class="showToday ">发出警报</div>
                                             <div class="showToday">数量</div>
-                                            <div class="showToday">1</div>
+                                            <div class="showToday send-alert">0</div>
                                             <div class="showToday">(台)</div>
                                         </div>
                                         <div class="looking-item  col-md-4 col-sm-4 col-xs-4">
@@ -131,17 +148,17 @@
                             </div>
                             <div class="row inToday-bottom">
                                 <div class="show-setting-mes">
-                                    <div class="show-setting-mes-icon">
+                                    <a  href="#boot" class="show-setting-mes-icon">
                                         <span>&nbsp;</span>
                                         <span class="fa fa-file-text-o"></span>
-                                    </div>
+                                    </a>
                                     <div class="show-setting-text">生成今日报表</div>
                                 </div>
                                 <div class="show-today-report">
-                                    <div class="show-today-report-icon">
+                                    <a href="#boot" class="show-today-report-icon">
                                         <span>&nbsp;</span>
                                         <span class="fa fa fa-info-circle"></span>
-                                    </div>
+                                    </a>
                                     <div class="show-today-text">设备基本信息</div>
                                 </div>
                             </div>
@@ -158,13 +175,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row"  >
                     <div class="percentChart tile ">
                         <div id="recentNum"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" id="boot">
                 <div class="  setting-message">
                     <div class="row">
                         <h3 class="block-title">设备信息</h3>
@@ -174,86 +191,42 @@
                     </div>
                     <div class="row">
                         <h3 class="block-title">安保信息</h3>
-                        <div class="message ">
+                        <div class="message security-box ">
                             <table id="security" class="table table-hover" ></table>
                         </div>
                     </div>
 
                 </div>
                 <div class=" toggle-show today-report tile">
-                    <h2 class="tile-title">今日报表</h2>
-                    <ul class="show-report">
-                        <li>
-                            <p>地点:<span class="">钟海楼</span></p>
-                            <p>预警时间:<span>2019-5-19 14:00 - 2019-5-19 16:00 </span></p>
-                            <p>持续时间:<span>120</span>分</p>
-                            <p>阈值:<span class="">200</span>(人)</p>
-                            <p>人数峰值:<span>300</span>(人)</p>
-                            <p>最高预警级别:<span>三级</span></p>
-                            <p>处理人员:<span>李世民</span></p>
-                            <p>联系方式:<span>1283182414</span></p>
-                        </li>
-                        <li>
-                            <p>地点:<span class="">主楼</span></p>
-                            <p>预警时间:<span>2019-5-19 14:00 - 2019-5-19 16:00 </span></p>
-                            <p>持续时间:<span>120</span>分</p>
-                            <p>阈值:<span class="">200</span>(人)</p>
-                            <p>人数峰值:<span>300</span>(人)</p>
-                            <p>最高预警级别:<span>三级</span></p>
-                            <p>处理人员:<span>张嘎</span></p>
-                            <p>联系方式:<span>1283182414</span></p>
-                        </li>
-                        <li>
-                            <p>地点:<span class="">主楼</span></p>
-                            <p>预警时间:<span>2019-5-19 14:00 - 2019-5-19 16:00 </span></p>
-                            <p>持续时间:<span>120</span>分</p>
-                            <p>阈值:<span class="">200</span>(人)</p>
-                            <p>人数峰值:<span>300</span>(人)</p>
-                            <p>最高预警级别:<span>三级</span></p>
-                            <p>处理人员:<span>张嘎</span></p>
-                            <p>联系方式:<span>1283182414</span></p>
-                        </li>
-                        <li>
-                            <p>地点:<span class="">主楼</span></p>
-                            <p>预警时间:<span>2019-5-19 14:00 - 2019-5-19 16:00 </span></p>
-                            <p>持续时间:<span>120</span>分</p>
-                            <p>阈值:<span class="">200</span>(人)</p>
-                            <p>人数峰值:<span>300</span>(人)</p>
-                            <p>最高预警级别:<span>三级</span></p>
-                            <p>处理人员:<span>张嘎</span></p>
-                            <p>联系方式:<span>1283182414</span></p>
-                        </li>
-                    </ul>
+                    <div class="box-top">
+                        <h2 class="tile-title">今日报表</h2>
+                        <div class="tile-config dropdown ">
+                            <a data-toggle="dropdown" href="" class="tile-menu"></a>
+                            <ul class="dropdown-menu pull-right text-right">
+                                <li><a id="print" href="#">打印当日报表</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="box-content"></div>
                 </div>
             </div>
         </div>
 
     </section>
+
+    <div id="printme" class="hidden"></div>
+
 </section>
 
-<!-- Javascript Libraries -->
 <!-- jQuery -->
 <script src="js/jquery.min.js"></script> <!-- jQuery Library -->
 <script src="js/jquery-ui.min.js"></script> <!-- jQuery UI -->
-<!--<script src="js/jquery.easing.1.3.js"></script> &lt;!&ndash; jQuery Easing - Requirred for Lightbox + Pie Charts&ndash;&gt;-->
 <!-- Bootstrap -->
 <script src="js/bootstrap.min.js"></script>
-<!-- Charts -->
-<script src="js/charts/jquery.flot.js"></script> <!-- Flot Main -->
-<script src="js/charts/jquery.flot.time.js"></script> <!-- Flot sub -->
-<script src="js/charts/jquery.flot.animator.min.js"></script> <!-- Flot sub -->
-<script src="js/charts/jquery.flot.resize.min.js"></script> <!-- Flot sub - for repaint when resizing the screen -->
-
-<script src="js/sparkline.min.js"></script> <!-- Sparkline - Tiny charts -->
-<script src="js/easypiechart.js"></script> <!-- EasyPieChart - Animated Pie Charts -->
-<script src="js/charts.js"></script> <!-- All the above chart related functions -->
-<!-- UX -->
-<script src="js/scroll.min.js"></script> <!-- Custom Scrollbar -->
-<!-- Other -->
-<script src="js/calendar.min.js"></script> <!-- Calendar -->
 <!--cookie-->
 <script src="js/jquery.cookie.js"></script>
-<script src="js/feeds.min.js"></script> <!-- News Feeds -->
+<!--<script src="js/feeds.min.js"></script> &lt;!&ndash; News Feeds &ndash;&gt;-->
 <!-- All JS functions -->
 <script src="js/functions.js"></script>
 <!-- Latest compiled and minified JavaScript -->
@@ -268,22 +241,25 @@
 <script src="js/bootstrap-select.js" type="text/javascript" charset="utf-8"></script>
 <!--laydate-->
 <script src="laydate/laydate.js"></script>
-<!--<script src="js/media-player.min.js"></script> &lt;!&ndash; Video Player &ndash;&gt;-->
 <!--hightcharts-->
 <script src="https://img.highcharts.com.cn/highstock/highstock.js"> </script>
 <script src="https://img.highcharts.com.cn/highcharts/highcharts-more.js"></script>
 <script src="https://img.highcharts.com.cn/highcharts/modules/exporting.js"></script>
 <script src="https://code.highcharts.com.cn/highcharts/modules/variable-pie.js"></script>
 <script src="https://img.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
-<script>
+<!--<script src="js/Print.js"></script>-->
+<script src="http://www.jq22.com/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script  language="javascript" src="js/jquery.jqprint-0.3.js"></script>
+<!--<script src="js/jroll.js"></script>-->
+<script language="javascript">
 
+    $(document).ready(function(){
+        if((typeof ($.cookie("adminName")) === 'undefined')||(typeof ($.cookie("adminId")) === 'undefined')){
+            window.location.href  = "login.html";
+        }
+    });
 
     $(function(){
-
-        $('[data-toggle="tooltip"]').tooltip({
-                placement:'left',
-            }
-        );
 
         $("#judge").on("click" , function(){
             // console.log(!$(this).attr("href"));
@@ -307,7 +283,7 @@
         var websocket = null;
         //判断当前浏览器是否支持WebSocket
         if ('WebSocket' in window) {
-            websocket = new WebSocket("ws://39.108.77.106/ai_monitor/wb/update");
+            websocket = new WebSocket("ws://47.112.132.177/ai_monitor/wb/update");
         } else {
             alert('当前浏览器 Not support websocket')
         }
@@ -324,15 +300,15 @@
         websocket.onmessage = function (event) {
             $("#judge").attr("href" , "alert.html");
             $(".alert-tip").attr("href" ,"alert.html");
+            $("#alert_count").html("1");
+            $(".send-alert").html("1");
+
             var str = JSON.parse(event.data);
             $.cookie("video_source" ,str.video_port);           //存入cookie
             $.cookie("img_id" ,str.dt_id);
-            console.log(str.dt_id);
             $.cookie("alert_place" , str.place_id);
-            resetPlace   = str.place_id;
-            console.log(str.has_performed);
-
-            if((str.has_performed)&&flag){                      //弹出警报
+            resetPlace   = str.place_id ;
+            if(str.has_performed&&flag){                       //弹出警报
                 //发送消息到其他网页
                 flag = 0;
                 Ewin.confirm({ message: "有新的预警产生，是否前往？",btnok:"前往" }).on(function (e) {
@@ -341,17 +317,17 @@
                         return;
                     }
                     window.location.href = "alert.html";
-                    flag = 1;
                 });
             }else{
-                $("#alert_count").html("1")
+                // $("#alert_count").html("1");
+                // $(".send-alert").html("1");
             }
         };
         //连接关闭的回调方法
         websocket.onclose = function () {
             $("#judge").attr("href" , "");
             $(".alert-tip").attr("href" ,"");
-            // Ewin.alert("预警已结束！");
+            Ewin.alert("预警已结束！");
         };
         //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
         window.onbeforeunload = function (){
@@ -365,7 +341,6 @@
         function closeWebSocket() {
             websocket.close();
         }
-
 
 
         if($(window).width() < 768){
@@ -410,7 +385,7 @@
 
         $.ajax({
             type:'get',
-            url:'http://39.108.77.106/ai_monitor/usr/ac_main_chart',
+            url:'http://47.112.132.177/ai_monitor/usr/ac_main_chart',
             dataType:'json',
             success:function(res){
                 var pieData = res.n_data;
@@ -440,16 +415,6 @@
                 index++ ;
             }
 
-            // Highcharts.getOptions().colors = Highcharts.map(colors, function (color) {
-            //     return {
-            //         radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
-            //         stops: [
-            //             [0, color],
-            //             [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-            //         ]
-            //     };
-            // });
-            // console.log(Highcharts.getOptions().colors)
 
         var chart = Highcharts.chart('hasPercent',{
             colors: colors,
@@ -516,7 +481,10 @@
         });
         };
 
-        //柱形图
+        /**
+         *柱形图
+         * @关键字
+         */
         var columnChart = function(colunmData_x,colunmData_y){
             var chart = Highcharts.chart('recentNum', {
                 colors: colors,
@@ -590,10 +558,14 @@
             });
         };
 
-        //setting table
+        /**
+         * 设备信息
+         * @关键字
+         */
         (function(){
+            var place_id ;
             $('#set-mes').bootstrapTable({
-                url: "http://39.108.77.106/ai_monitor/usr/ac_plh_place",//数据源
+                url: "http://47.112.132.177/ai_monitor/usr/ac_plh_place",//数据源
                 dataField: "rows",//服务端返回数据键值 就是说记录放的键值是rows，分页时使用总记录数的键值为total
                 search: false,//是否搜索
                 pagination: false,//是否分页
@@ -644,11 +616,9 @@
                 ],
                 onClickRow: function (row, $element) {
                     $a = $element.find("td > .editable ");
-                    // console.log($a);
                     curRow = row;                               //获取一行的信息
-                    // console.log(curRow);
+                    place_id = row.p_name;
                     old_value = curRow.p_threh;
-                    console.log(old_value)
                 },
                 onLoadSuccess: function (aa, bb, cc) {
                     $("#set-mes a").editable({
@@ -659,18 +629,18 @@
                             }
                         },
                         url: function (params) {
-                            // console.log(params);//获取标签元素
                             var sName = $(this).attr("name");   //获取特定元素标签name
-                            // console.log(sName);
                             curRow[sName] = params.value;       //将新值付给curRow行的特定元素标签
-                            // console.log(curRow[sName]);
-                            console.log(curRow.p_threh,resetPlace);
                             if( !isNaN(curRow.p_threh)){
-                                var jsonStr = JSON.stringify({id: 'client' , place_id:resetPlace ,msg:{"reset_number":curRow.p_threh}} );
-                                websocket.send(jsonStr);
-                                setTimeout(function(){
-                                    Ewin.alert("修改成功，阈值将在下次生效！");
-                                },1000)
+                                $.ajax({
+                                    type:'post',
+                                   dataType:'json',
+                                   url:'http://47.112.132.177/ai_monitor/admin/mc_ud_threh',
+                                   data:{"p.p_name":place_id,"p.p_threh":curRow.p_threh , "m.m_id":$.cookie("adminId") },
+                                   success:function(res){
+                                       Ewin.alert("修改成功！");
+                                   }
+                                });
                             }
                         },
                     });
@@ -680,13 +650,15 @@
             });
         })();
 
-        //保安
+        /**
+         * 安保人员
+         * @关键字
+         */
         (function(){
             $('#security').bootstrapTable({
-                url: "http://39.108.77.106/ai_monitor/usr/ac_worker_info",//数据源
+                url: "http://47.112.132.177/ai_monitor/usr/ac_worker_info",//数据源
                 dataField: "rows",//服务端返回数据键值 就是说记录放的键值是rows，分页时使用总记录数的键值为total
-                // height: tableHeight(),//高度调整
-                // height:"382",
+                height:552,
                 search: false,//是否搜索
                 pagination: false,//是否分页
                 pageSize: 5,//单页记录数
@@ -732,13 +704,18 @@
                 detailView: false, //是否显示详情折叠
             });
         })();
-        
-        //切换显示
+
+        /**
+         * 切换显示
+         * @关键字
+         */
         (function () {
             var flag = 0;
             var index_mes = 0;
             var index_report = 0;
             $(".show-setting-mes-icon").on("click" , function(){
+                // var todist = $("#toggle-mes").offset().top;
+                // $("body").stop().animate({scrollTop:todist});
                 if(!index_mes){
                     $(".today-report").addClass("rotateY");
                     index_mes = 1;
@@ -750,6 +727,8 @@
                 }
             });
             $(".show-today-report-icon").on("click" , function(){
+                // var todist = $("#toggle-mes").offset().top;
+                // $("body").stop().animate({scrollTop:todist});
                 if(!index_report){
                     $(".setting-message").addClass("rotateY");
                     index_report = 1;
@@ -760,6 +739,64 @@
                     flag = 0
                 }
             });
+        })();
+
+
+        /*
+        * 接收当日报表
+        * @关键字
+        * */
+        (function(){
+            $.get("http://47.112.132.177/ai_monitor/usr/ac_dt_today" , function(res){
+                res  = JSON.parse(res);
+                var $sp = $(".today-report");
+                if(res.status === 400){
+                    $sp.append("" +
+                        " <div class=\"noReport\">\n" +
+                        "    <p>今日无警报产生！</p>\n" +
+                        "  </div>");
+
+                    return ;
+                }
+
+                $(".box-content").append("" +
+                    "<ul class='show-report'></ul>" +
+                    "");
+                $('#printme').append("" +
+                    "<ul class='show-report'></ul>");
+                for(var i = 0 ; i< res.data.length ; i++){
+                    $(".show-report").append("" +
+                        "<li>\n" +
+                        " <p>地点:<span class=\"\">"+res.data[i].place_name+"</span></p>\n" +
+                        " <p>预警时间:<span>"+res.data[i].time+"</span></p>\n" +
+                        " <p>持续时间:<span>"+res.data[i].duration +"</span></p>\n" +
+                        " <p>阈值:<span class=\"\">"+res.data[i].set_num+"</span></p>\n" +
+                        " <p>人数峰值:<span>"+res.data[i].max_num+"</span></p>\n" +
+                        " <p>最高预警级别:<span>"+res.data[i].alert_level+"</span></p>\n" +
+                        " <p>处理人员:<span>"+res.data[i].workers+"</span></p>\n" +
+                        " <p>联系方式:<span>"+res.data[i].contacts+"</span></p>\n" +
+                        " </li>" );
+                }
+            });
+        })();
+
+
+
+        /*
+        * 打印报表
+        * @关键字
+        * */
+        (function(){
+            $("#print").on("click" , function(){
+
+                $("#printme").jqprint({
+                    debug: false, //如果是true则可以显示iframe查看效果（iframe默认高和宽都很小，可以再源码中调大），默认是false
+                    importCSS: true, //true表示引进原来的页面的css，默认是true。（如果是true，先会找$("link[media=print]")，若没有会去找$("link")中的css文件）
+                    printContainer: true, //表示如果原来选择的对象必须被纳入表示如果插件也必须支持歌opera浏览器打印（注意：设置为false可能会打破你的CSS规则）。
+                    operaSupport: true//，在这种情况下，它提供了建立一个临时的打印选项卡。默认是true
+                });
+                // Print('.today-report');
+            })
         })();
 
     });
