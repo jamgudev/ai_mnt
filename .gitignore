@@ -5,7 +5,6 @@
 # IntelliJ project files
 .idea
 *.iml
-webapp/
 !META-INF
 !WEB-INF
 pom.xml

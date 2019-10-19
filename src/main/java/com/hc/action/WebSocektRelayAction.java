@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by GOPENEDD on 2019/5/19
+ *
+ * 处理打开、关闭视频流接受端口请求
  */
 @SuppressWarnings({"WeakerAccess", "unused", "JavaDoc"})
 public class WebSocektRelayAction extends ActionSupport implements ModelDriven<DoMain> {
