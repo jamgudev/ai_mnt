@@ -10,7 +10,7 @@
     <!-- 统一源码的编码方式 -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- 统一各个框架版本 -->
-    <struts.version>2.3.36</struts.version>
+    <struts.version>2.5.22</struts.version>
     <spring.version>5.1.1.RELEASE</spring.version>
     <hibernate.version>5.3.6.Final</hibernate.version>
   </properties>
