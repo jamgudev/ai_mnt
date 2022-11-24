@@ -12,7 +12,7 @@
     <!-- 统一各个框架版本 -->
     <struts.version>2.3.36</struts.version>
     <spring.version>5.1.1.RELEASE</spring.version>
-    <hibernate.version>5.3.6.Final</hibernate.version>
+    <hibernate.version>5.3.20.Final</hibernate.version>
   </properties>
   <dependencies>
     <dependency>
